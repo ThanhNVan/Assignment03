@@ -6,4 +6,8 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\02 Data\SharedLibrary.DataProviders\SharedLibrary.DataProviders.csproj" />
+  </ItemGroup>
+
 </Project>
