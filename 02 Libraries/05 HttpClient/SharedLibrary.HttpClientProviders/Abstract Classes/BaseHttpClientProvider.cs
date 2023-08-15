@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SharedLibrary.EntityProviders;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 

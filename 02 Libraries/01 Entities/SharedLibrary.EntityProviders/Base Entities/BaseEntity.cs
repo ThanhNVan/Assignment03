@@ -7,6 +7,7 @@ public abstract class BaseEntity
     #region [ Properties ]
     [Key]
     [Required]
+    [DataType(DataType.Text)]
     public string Id { get; set; }
 
     [Required]

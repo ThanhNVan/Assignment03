@@ -6,4 +6,8 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\01 Entities\Assignment03.EntityProviders\Assignment03.EntityProviders.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -27,8 +27,6 @@ public static class MethodUrl
 
     public static string CountIsNotDeleted = "/CountIsNotDeleted/";
 
-    public static string AdminLogin = "/AdminLogin/";
-
     public static string Login = "/Login/";
 
     public static string GetSingleByEmail = "/GetSingleByEmail/";
