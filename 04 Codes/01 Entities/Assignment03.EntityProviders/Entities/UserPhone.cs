@@ -2,6 +2,7 @@
 using SharedLibrary.EntityProviders;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Assignment03.EntityProviders;
 
@@ -18,7 +19,10 @@ public class UserPhone : BaseEntity
     #region [ Properties - FK ]
     public string UserId { get; set; }
 
+    [Required]
+    [JsonIgnore]
     [ForeignKey(nameof(UserId))]
+    [InverseProperty("UserPhones")]
     public User User { get; set; }
     #endregion
 }

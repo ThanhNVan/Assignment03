@@ -10,4 +10,10 @@
     <ProjectReference Include="..\..\02 Data\Assignment03.DataProviders\Assignment03.DataProviders.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logic Context\" />
+    <Folder Include="Logic Providers\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>

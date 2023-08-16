@@ -35,6 +35,12 @@ public class User : BaseEntity
     #region [ Properties - Virtual]
     [JsonIgnore]
     [NotMapped]
+    [InverseProperty("User")]
     public virtual ICollection<UserPhone>? UserPhones { get; set; }
+
+    [JsonIgnore]
+    [NotMapped]
+    [InverseProperty("User")]
+    public virtual ICollection<RefreshToken>? RefreshTokens { get; set; }
     #endregion
 }

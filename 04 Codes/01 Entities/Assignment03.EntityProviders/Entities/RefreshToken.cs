@@ -1,8 +1,10 @@
 ﻿using SharedLibrary.EntityProviders;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Assignment03.EntityProviders;
+
 [Table(nameof(RefreshToken))]
 public class RefreshToken : BaseEntity
 {
@@ -32,7 +34,9 @@ public class RefreshToken : BaseEntity
     public string UserId { get; set; }
 
     [Required]
+    [JsonIgnore]
     [ForeignKey(nameof(UserId))]
+    [InverseProperty("RefreshTokens")]
     public User User { get; set; }
     #endregion
 }
