@@ -27,7 +27,7 @@ public class UserController : BaseWebApiController<User, IUserLogicProviders>
 
     #region [ Methods - Login/ Logout ]
     [AllowAnonymous]
-    [HttpPost(nameof(MethodUrl.Login))]
+    [HttpPost(nameof(MethodUrl.SignIn))]
     public async Task<IActionResult> LoginAsync([FromBody] SignInModel model) {
         try {
             var apiResponse = new ApiResponseModel();

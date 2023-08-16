@@ -8,6 +8,8 @@ public interface IAuthenticationProvider
     //string GenerateRefreshToken();
 
     TokenModel GenerateToken(User user);
+    
+    TokenModel GenerateAdminToken(SignInModel admin);
     #endregion
 
     #region [ Methods - Hash ]

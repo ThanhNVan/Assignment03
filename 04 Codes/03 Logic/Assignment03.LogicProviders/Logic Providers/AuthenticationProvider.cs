@@ -73,10 +73,39 @@ public class AuthenticationProvider : IAuthenticationProvider
 
         return result;
     }
+
+    public TokenModel GenerateAdminToken(SignInModel admin) {
+        var userRole = AppUserRole.Admin;
+        var jwtTokenHandler = new JwtSecurityTokenHandler();
+        var secretKeyBytes = Encoding.UTF8.GetBytes(_appSettingModel.SecretKey);
+
+        var tokenDescriptor = new SecurityTokenDescriptor {
+            Subject = new ClaimsIdentity(new[] {
+                new Claim(JwtRegisteredClaimNames.Email, admin.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+
+                // roles
+                new Claim(ClaimTypes.Role, userRole),
+            }),
+            Expires = DateTime.UtcNow.AddDays(3),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha512Signature)
+        };
+        var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+        var accessToken = jwtTokenHandler.WriteToken(token);
+        var refreshToken = GenerateRefreshToken();
+
+        var result = new TokenModel {
+            Id = token.Id,
+            AccessToken = accessToken,
+            RefreshToken = refreshToken
+        };
+
+        return result;
+    }
     #endregion
 
-    #region [ Methods - HashPassword ]
-    public string HashPassword(string password) {
+        #region [ Methods - HashPassword ]
+        public string HashPassword(string password) {
         var result = string.Empty;
         using (var sha512 = SHA512.Create()) {
             var passwordData = Encoding.UTF8.GetBytes(password);
