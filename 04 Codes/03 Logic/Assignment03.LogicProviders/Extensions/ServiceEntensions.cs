@@ -13,6 +13,7 @@ public static class ServiceEntensions
         services.AddTransient<IRefreshTokenLogicProviders, RefreshTokenLogicProviders>();
         services.AddTransient<IUserLogicProviders, UserLogicProviders>();
         services.AddTransient<IUserPhoneLogicProviders, UserPhoneLogicProviders>();
+        services.AddTransient<IAuthenticationProvider, AuthenticationProvider>();
 
         services.AddTransient<LogicContext>();
     }

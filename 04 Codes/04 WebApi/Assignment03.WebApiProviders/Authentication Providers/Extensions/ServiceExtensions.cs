@@ -22,7 +22,5 @@ public static class ServiceExtensions
                 ClockSkew = TimeSpan.Zero
             };
         });
-
-        services.AddTransient<IAuthenticationProvider, AuthenticationProvider>();
     }
 }
