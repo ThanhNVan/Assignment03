@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Assignment03.LogicProviders;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SharedLibrary.EntityProviders;
@@ -8,25 +9,24 @@ namespace SharedLibrary.WebApiProviders;
 
 [ApiController]
 [Route("Api/V1/[controller]")]
-internal class BaseWebApiProvider<TEntity, TLogicProvider> : ControllerBase
+public abstract class BaseWebApiController<TEntity, TLogicProvider> : ControllerBase
     where TEntity : BaseEntity
     where TLogicProvider : IBaseLogicProvider<TEntity>
 {
     #region [ Fields ]
-    protected readonly ILogger<BaseWebApiProvider<TEntity, TLogicProvider>> _logger;
+    protected readonly ILogger<BaseWebApiController<TEntity, TLogicProvider>> _logger;
     protected readonly TLogicProvider _logicProvider;
-    //protected readonly LogicContext _logicContext;
+    protected readonly LogicContext _logicContext;
     #endregion
 
     #region [ CTor ]
-    public BaseWebApiProvider(ILogger<BaseWebApiProvider<TEntity, TLogicProvider>> logger,
-        TLogicProvider logicProvider
+    public BaseWebApiController(ILogger<BaseWebApiController<TEntity, TLogicProvider>> logger,
+                                TLogicProvider logicProvider, LogicContext logicContext
         ) {
-        //, LogicContext logicContext
 
         this._logger = logger;
         this._logicProvider = logicProvider;
-        //this._logicContext = logicContext;
+        this._logicContext = logicContext;
     }
     #endregion
 

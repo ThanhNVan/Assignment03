@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using SharedLibrary.EntityProviders;
+using SharedLibrary.DataProviders;
 
 namespace SharedLibrary.LogicProviders;
 
 public abstract class BaseLogicProvider<TEntity, TDataProvider> : IBaseLogicProvider<TEntity>
     where TEntity : BaseEntity
-    where TDataProvider : IBaseLogicProvider<TEntity>
+    where TDataProvider : IBaseDataProvider<TEntity>
 {
     #region [ Fields ]
     protected readonly ILogger<BaseLogicProvider<TEntity, TDataProvider>> _logger;

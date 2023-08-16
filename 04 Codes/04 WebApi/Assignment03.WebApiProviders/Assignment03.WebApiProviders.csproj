@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\02 Libraries\04 WebApi\SharedLibrary.WebApiProviders\SharedLibrary.WebApiProviders.csproj" />
     <ProjectReference Include="..\..\03 Logic\Assignment03.LogicProviders\Assignment03.LogicProviders.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
