@@ -7,13 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\02 Libraries\02 Data\SharedLibrary.DataProviders\SharedLibrary.DataProviders.csproj" />
     <ProjectReference Include="..\..\01 Entities\Assignment03.EntityProviders\Assignment03.EntityProviders.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data Context\" />
-    <Folder Include="Data Providers\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>
