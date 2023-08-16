@@ -30,6 +30,9 @@ public class User : BaseEntity
     [Required]
     [DataType(DataType.Password)]
     public string PasswordHash { get; set; }
+    
+    [Required]
+    public int Role { get; set; }
     #endregion
 
     #region [ Properties - Virtual]

@@ -9,5 +9,6 @@ namespace Assignment03.EntityProviders;
 public enum RoleEnums
 {
     Employee = 1000,
-    Manager = 1001
+    Manager = 1001,
+    Admin = 1002
 }

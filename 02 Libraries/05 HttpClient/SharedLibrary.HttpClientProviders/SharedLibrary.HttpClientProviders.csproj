@@ -11,8 +11,8 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\02 Data\SharedLibrary.DataProviders\SharedLibrary.DataProviders.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\04 Codes\01 Entities\Assignment03.EntityProviders\Assignment03.EntityProviders.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SharedLibrary.EntityProviders;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 
@@ -25,11 +26,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
     #endregion
 
     #region [ Public Methods - CRUD ]
-    public virtual async Task<bool> AddAsync(TEntity entity) {
+    public virtual async Task<bool> AddAsync(TEntity entity, string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.Add;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var result = await httpClient.PostAsJsonAsync(url, entity);
 
@@ -44,11 +45,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         }
     }
 
-    public virtual async Task<TEntity> GetSingleByIdAsync(string id) {
+    public virtual async Task<TEntity> GetSingleByIdAsync(string id, string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.GetSingleById + id;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -64,11 +65,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         }
     }
 
-    public virtual async Task<bool> UpdateAsync(TEntity entity) {
+    public virtual async Task<bool> UpdateAsync(TEntity entity, string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.Update;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.PutAsJsonAsync(url, entity);
 
@@ -83,11 +84,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         }
     }
 
-    public virtual async Task<bool> SoftDeleteAsync(string entityId) {
+    public virtual async Task<bool> SoftDeleteAsync(string entityId, string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.SoftDelete + entityId;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.DeleteAsync(url);
 
@@ -101,11 +102,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         }
     }
 
-    public async Task<bool> DestroyAsync(string entityId) {
+    public async Task<bool> DestroyAsync(string entityId, string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.Destroy + entityId;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.DeleteAsync(url);
 
@@ -119,11 +120,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         }
     }
 
-    public virtual async Task<bool> RecoverAsync(string entityId) {
+    public virtual async Task<bool> RecoverAsync(string entityId, string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.Recover;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.PutAsJsonAsync(url, entityId);
 
@@ -137,11 +138,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         }
     }
 
-    public virtual async Task<IList<TEntity>> GetListAllAsync() {
+    public virtual async Task<IList<TEntity>> GetListAllAsync(string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.GetListAll;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -157,11 +158,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         }
     }
 
-    public virtual async Task<IList<TEntity>> GetListIsDeletedAsync() {
+    public virtual async Task<IList<TEntity>> GetListIsDeletedAsync(string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.GetListIsDeleted;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -177,11 +178,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         }
     }
 
-    public virtual async Task<IList<TEntity>> GetListIsNotDeletedAsync() {
+    public virtual async Task<IList<TEntity>> GetListIsNotDeletedAsync(string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.GetListIsNotDeleted;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -197,11 +198,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         }
     }
 
-    public virtual async Task<int> CountAllAsync() {
+    public virtual async Task<int> CountAllAsync(string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.CountAll;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -217,11 +218,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         }
     }
 
-    public virtual async Task<int> CountIsDeletedAsync() {
+    public virtual async Task<int> CountIsDeletedAsync(string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.CountIsDeleted;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -236,11 +237,11 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
             return -1;
         }
     }
-    public virtual async Task<int> CountIsNotDeletedAsync() {
+    public virtual async Task<int> CountIsNotDeletedAsync(string accessToken = "") {
         try {
             var url = this._entityUrl + MethodUrl.CountIsNotDeleted;
 
-            var httpClient = this.CreateClient();
+            var httpClient = this.CreateClient(accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -258,9 +259,16 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
     #endregion
 
     #region [ Private Methods -  ]
-    protected HttpClient CreateClient(string clientName = "BaseClientName") {
+    protected HttpClient CreateClient(string clientName = "BaseClientName", string accessToken = "") {
         // RoutingUrl.BaseClientName = "BaseClientName"
-        return this._httpClientFactory.CreateClient(clientName);
+        var result =  this._httpClientFactory.CreateClient(clientName);
+
+        if (!string.IsNullOrEmpty(accessToken)) {
+
+            result.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+        }
+
+        return result;
     }
 
     protected StringContent GetJsonPayload<TPayload>(TPayload payload) {
