@@ -1,4 +1,5 @@
 ﻿using Assignment03.LogicProviders;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,6 +9,7 @@ using SharedLibrary.LogicProviders;
 namespace SharedLibrary.WebApiProviders;
 
 [ApiController]
+[Authorize(Roles = "Admin,Manager,Employee")]
 [Route("Api/V1/[controller]")]
 public abstract class BaseWebApiController<TEntity, TLogicProvider> : ControllerBase
     where TEntity : BaseEntity

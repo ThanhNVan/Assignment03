@@ -24,4 +24,8 @@
     <ProjectReference Include="..\..\..\02 Libraries\01 Entities\SharedLibrary.EntityProviders\SharedLibrary.EntityProviders.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>

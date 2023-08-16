@@ -7,6 +7,7 @@ using System.Text;
 
 namespace SharedLibrary.HttpClientProviders;
 
+
 public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<TEntity>
     where TEntity : BaseEntity
 {
@@ -261,7 +262,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
     #region [ Private Methods -  ]
     protected HttpClient CreateClient(string clientName = "BaseClientName", string accessToken = "") {
         // RoutingUrl.BaseClientName = "BaseClientName"
-        var result =  this._httpClientFactory.CreateClient(clientName);
+        var result = this._httpClientFactory.CreateClient(clientName);
 
         if (!string.IsNullOrEmpty(accessToken)) {
 
