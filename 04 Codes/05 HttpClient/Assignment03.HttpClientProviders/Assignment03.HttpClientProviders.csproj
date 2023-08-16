@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="HttpClient Context\" />
     <Folder Include="HttpClient Providers\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\02 Libraries\05 HttpClient\SharedLibrary.HttpClientProviders\SharedLibrary.HttpClientProviders.csproj" />
+    <ProjectReference Include="..\..\01 Entities\Assignment03.EntityProviders\Assignment03.EntityProviders.csproj" />
   </ItemGroup>
 
 </Project>
