@@ -42,27 +42,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 WebApi", "04 WebApi", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 HttpClient", "05 HttpClient", "{0B77FAE6-821A-40BE-B7B6-B7F0616BA9A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment03.WebApiHost", "05 Hosts\Assignment03.WebApiHost\Assignment03.WebApiHost.csproj", "{66198AAC-5E70-4E88-BD74-BA15550F65B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment03.WebApiHost", "05 Hosts\Assignment03.WebApiHost\Assignment03.WebApiHost.csproj", "{66198AAC-5E70-4E88-BD74-BA15550F65B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary.EntityProviders", "02 Libraries\01 Entities\SharedLibrary.EntityProviders\SharedLibrary.EntityProviders.csproj", "{93044136-71C9-4CEB-93BD-8A72658CB7B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary.EntityProviders", "02 Libraries\01 Entities\SharedLibrary.EntityProviders\SharedLibrary.EntityProviders.csproj", "{93044136-71C9-4CEB-93BD-8A72658CB7B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary.DataProviders", "02 Libraries\02 Data\SharedLibrary.DataProviders\SharedLibrary.DataProviders.csproj", "{ACED1F2D-9758-4FE0-9D85-F3E5CA2588D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary.DataProviders", "02 Libraries\02 Data\SharedLibrary.DataProviders\SharedLibrary.DataProviders.csproj", "{ACED1F2D-9758-4FE0-9D85-F3E5CA2588D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary.LogicProviders", "02 Libraries\03 Logic\SharedLibrary.LogicProviders\SharedLibrary.LogicProviders.csproj", "{1A72BED6-F119-4930-A9E4-73736143BF25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary.LogicProviders", "02 Libraries\03 Logic\SharedLibrary.LogicProviders\SharedLibrary.LogicProviders.csproj", "{1A72BED6-F119-4930-A9E4-73736143BF25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary.WebApiProviders", "02 Libraries\04 WebApi\SharedLibrary.WebApiProviders\SharedLibrary.WebApiProviders.csproj", "{C947DC59-7B23-400B-85AE-FF5BF96E3340}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary.WebApiProviders", "02 Libraries\04 WebApi\SharedLibrary.WebApiProviders\SharedLibrary.WebApiProviders.csproj", "{C947DC59-7B23-400B-85AE-FF5BF96E3340}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary.HttpClientProviders", "02 Libraries\05 HttpClient\SharedLibrary.HttpClientProviders\SharedLibrary.HttpClientProviders.csproj", "{E662BE99-C741-413A-9542-50AC86762DE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary.HttpClientProviders", "02 Libraries\05 HttpClient\SharedLibrary.HttpClientProviders\SharedLibrary.HttpClientProviders.csproj", "{E662BE99-C741-413A-9542-50AC86762DE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment03.EntityProviders", "04 Codes\01 Entities\Assignment03.EntityProviders\Assignment03.EntityProviders.csproj", "{43917664-CDD7-42FE-9D26-D76CF38991B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment03.EntityProviders", "04 Codes\01 Entities\Assignment03.EntityProviders\Assignment03.EntityProviders.csproj", "{43917664-CDD7-42FE-9D26-D76CF38991B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment03.DataProviders", "04 Codes\02 Data\Assignment03.DataProviders\Assignment03.DataProviders.csproj", "{FAB6DCB8-11FD-4937-89D8-E2E38AC58CE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment03.DataProviders", "04 Codes\02 Data\Assignment03.DataProviders\Assignment03.DataProviders.csproj", "{FAB6DCB8-11FD-4937-89D8-E2E38AC58CE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment03.LogicProviders", "04 Codes\03 Logic\Assignment03.LogicProviders\Assignment03.LogicProviders.csproj", "{85EB220F-2CA9-4C9D-A3F8-8822E4C01025}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment03.LogicProviders", "04 Codes\03 Logic\Assignment03.LogicProviders\Assignment03.LogicProviders.csproj", "{85EB220F-2CA9-4C9D-A3F8-8822E4C01025}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment03.WebApiProviders", "04 Codes\04 WebApi\Assignment03.WebApiProviders\Assignment03.WebApiProviders.csproj", "{148460E5-F470-4BE3-98A9-685F33845247}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment03.WebApiProviders", "04 Codes\04 WebApi\Assignment03.WebApiProviders\Assignment03.WebApiProviders.csproj", "{148460E5-F470-4BE3-98A9-685F33845247}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment03.HttpClientProviders", "04 Codes\05 HttpClient\Assignment03.HttpClientProviders\Assignment03.HttpClientProviders.csproj", "{250D65F0-C232-4DD1-A676-890683E32ACB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment03.HttpClientProviders", "04 Codes\05 HttpClient\Assignment03.HttpClientProviders\Assignment03.HttpClientProviders.csproj", "{250D65F0-C232-4DD1-A676-890683E32ACB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

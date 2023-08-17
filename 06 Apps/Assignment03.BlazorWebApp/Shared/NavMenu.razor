@@ -1,4 +1,8 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Blazored.SessionStorage;
+@using Assignment03.EntityProviders;
+
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Assignment03</a>
     </div>
@@ -6,21 +10,60 @@
 
 <div>
     <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </div>
+        @if (Role == default(int)) {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </div>
+        }
+        @if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Admin/Products" Match="NavLinkMatch.All">
+                    <span class="oi oi-calculator" aria-hidden="true"></span> Products
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Admin/Categories" Match="NavLinkMatch.All">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Categories
+                </NavLink>
+            </div>
+            
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Admin/Orders" Match="NavLinkMatch.All">
+                    <span class="oi oi-bar-chart" aria-hidden="true"></span> Orders
+                </NavLink>
+            </div>
+            
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Admin/Users" Match="NavLinkMatch.All">
+                    <span class="oi oi-people" aria-hidden="true"></span> Users
+                </NavLink>
+            </div>
+        }
+        @if (Role != default(int)) {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Logout">
+                    <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
+                </NavLink>
+            </div>
+        }
     </nav>
 </div>
+
+@code {
+    [Inject]
+    private ISessionStorageService SessionStorage { get; set; }
+
+    private int Role { get; set; }
+
+    protected override async Task OnInitializedAsync() {
+        try {
+            Role = await SessionStorage.GetItemAsync<int>(AppUserRole.Role);
+        } catch { }
+
+        StateHasChanged();
+    }
+}
 

@@ -31,7 +31,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.Add;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var result = await httpClient.PostAsJsonAsync(url, entity);
 
@@ -50,7 +50,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.GetSingleById + id;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -70,7 +70,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.Update;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.PutAsJsonAsync(url, entity);
 
@@ -89,7 +89,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.SoftDelete + entityId;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.DeleteAsync(url);
 
@@ -107,7 +107,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.Destroy + entityId;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.DeleteAsync(url);
 
@@ -125,7 +125,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.Recover;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.PutAsJsonAsync(url, entityId);
 
@@ -143,7 +143,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.GetListAll;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -163,7 +163,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.GetListIsDeleted;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -183,7 +183,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.GetListIsNotDeleted;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -203,7 +203,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.CountAll;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -223,7 +223,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.CountIsDeleted;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.GetAsync(url);
 
@@ -242,7 +242,7 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         try {
             var url = this._entityUrl + MethodUrl.CountIsNotDeleted;
 
-            var httpClient = this.CreateClient(accessToken);
+            var httpClient = this.CreateClient(accessToken: accessToken);
 
             var response = await httpClient.GetAsync(url);
 

@@ -1,4 +1,5 @@
 ﻿@page "/"
+@implements IDisposable
 @using Syncfusion.Blazor.Buttons
 @using Syncfusion.Blazor.Inputs
 
@@ -22,14 +23,11 @@
                         <h4 class="text-danger">@Warning</h4>
                     </td>
                 </tr>
-
-                <tr>
-                    <td>
-                        <SfButton @onclick="async () => await SignInAsync()" >Login</SfButton>
-                    </td>
-                </tr>
-
             </table>
+            <SfButton CssClass="e-success" IsPrimary=true @onclick="async () => await SignInAsync()">
+                Login   <span class="oi oi-account-login" aria-hidden="true"></span>
+            </SfButton>
+
         </div>
     </div>
 </div>
