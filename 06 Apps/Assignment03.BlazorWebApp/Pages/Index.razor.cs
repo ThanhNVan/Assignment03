@@ -36,19 +36,22 @@ public partial class Index
 
         var result = await this.HttpClientContext.User.SignInAsync(signInModel);
 
-        if (result != null) {
-            if (result.Model != null) {
-                await SessionStorage.SetItemAsync(AppUserRole.Model, result.Model);
-                await SessionStorage.SetItemAsync(AppUserRole.Role, result.Model.Role);
-
-                NavigationManager.NavigateTo("Admin/Products", true);
-            }
+        if (result == null) {
             this.Warning = "Incorrect Email or Password";
             return;
         }
 
-        this.Warning = "Incorrect Email or Password";
+        if (result.Model == null) {
+            this.Warning = "Incorrect Email or Password";
+            return;
+        }
+
+        await SessionStorage.SetItemAsync(AppUserRole.Model, result.Model);
+        await SessionStorage.SetItemAsync(AppUserRole.Role, result.Model.Role);
+
+        NavigationManager.NavigateTo("Admin/Products", true);
         return;
+
     }
     #endregion
 
@@ -66,6 +69,7 @@ public partial class Index
 
         if (model.Role == (int)RoleEnums.Admin || model.Role == (int)RoleEnums.Manager) {
             NavigationManager.NavigateTo("Admin/Products", true);
+            await base.OnInitializedAsync();
         }
 
         await base.OnInitializedAsync();

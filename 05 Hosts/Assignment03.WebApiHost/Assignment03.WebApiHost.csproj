@@ -18,4 +18,8 @@
     <ProjectReference Include="..\..\04 Codes\04 WebApi\Assignment03.WebApiProviders\Assignment03.WebApiProviders.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

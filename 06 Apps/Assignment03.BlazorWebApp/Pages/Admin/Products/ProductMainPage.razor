@@ -9,10 +9,9 @@
     <Unauthorized></Unauthorized>
 } else if (this.Role == default(int)) {
     <span><p>Loading...</p></span>
-} else if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
-
-    <PageTitle>Products</PageTitle>
-} else {
+} else if (Role != (int)RoleEnums.Admin && Role != (int)RoleEnums.Manager) {
     <Unauthorized></Unauthorized>
+} else {
+    <PageTitle>Products</PageTitle>
 }
 
