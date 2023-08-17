@@ -8,6 +8,7 @@ public class OrderHttpClientProviders : BaseHttpClientProvider<Order>, IOrderHtt
 {
     #region [ CTor ]
     public OrderHttpClientProviders(IHttpClientFactory httpClientFactory, ILogger<BaseHttpClientProvider<Order>> logger) : base(httpClientFactory, logger) {
+        this._entityUrl = EntityUrl.Order;
     }
     #endregion
 }

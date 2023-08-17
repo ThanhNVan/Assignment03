@@ -9,6 +9,10 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\04 Codes\05 HttpClient\Assignment03.HttpClientProviders\Assignment03.HttpClientProviders.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Pages\Admin\" />
+	</ItemGroup>
 	
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>

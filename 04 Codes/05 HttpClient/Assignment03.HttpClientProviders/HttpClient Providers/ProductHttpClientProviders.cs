@@ -8,6 +8,7 @@ public class ProductHttpClientProviders : BaseHttpClientProvider<Product>, IProd
 {
     #region [ CTor ]
     public ProductHttpClientProviders(IHttpClientFactory httpClientFactory, ILogger<BaseHttpClientProvider<Product>> logger) : base(httpClientFactory, logger) {
+        this._entityUrl = EntityUrl.Product;
     }
     #endregion
 }

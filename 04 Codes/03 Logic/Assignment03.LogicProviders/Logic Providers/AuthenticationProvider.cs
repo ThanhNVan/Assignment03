@@ -104,8 +104,8 @@ public class AuthenticationProvider : IAuthenticationProvider
     }
     #endregion
 
-        #region [ Methods - HashPassword ]
-        public string HashPassword(string password) {
+    #region [ Methods - HashPassword ]
+    public string HashPassword(string password) {
         var result = string.Empty;
         using (var sha512 = SHA512.Create()) {
             var passwordData = Encoding.UTF8.GetBytes(password);

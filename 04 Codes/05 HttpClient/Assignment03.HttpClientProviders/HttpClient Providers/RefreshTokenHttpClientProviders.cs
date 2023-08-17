@@ -8,6 +8,7 @@ public class RefreshTokenHttpClientProviders : BaseHttpClientProvider<RefreshTok
 {
     #region [ CTor ]
     public RefreshTokenHttpClientProviders(IHttpClientFactory httpClientFactory, ILogger<BaseHttpClientProvider<RefreshToken>> logger) : base(httpClientFactory, logger) {
+        this._entityUrl = EntityUrl.RefreshToken;
     }
     #endregion
 }

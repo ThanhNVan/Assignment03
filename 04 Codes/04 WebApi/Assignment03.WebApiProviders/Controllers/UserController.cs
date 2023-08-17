@@ -28,21 +28,21 @@ public class UserController : BaseWebApiController<User, IUserLogicProviders>
     #region [ Methods - Login/ Logout ]
     [AllowAnonymous]
     [HttpPost(nameof(MethodUrl.SignIn))]
-    public async Task<IActionResult> LoginAsync([FromBody] SignInModel model) {
+    public async Task<IActionResult> SignInAsync([FromBody] SignInModel model) {
         try {
-            var apiResponse = new ApiResponseModel();
+            var apiResponse = new SignInResponseModel();
             var result = await this._logicProvider.GetSingleBySignInAsync(model);
 
             if (result == null) {
                 apiResponse.Success = false;
                 apiResponse.Message = "Not correct Email or Password";
-                apiResponse.Data = null;
+                apiResponse.Model = null;
                 return BadRequest(apiResponse);
             }
 
             apiResponse.Success = true;
             apiResponse.Message = "Ok";
-            apiResponse.Data = result;
+            apiResponse.Model = result;
             return Ok(apiResponse);
 
         } catch (Exception ex) {

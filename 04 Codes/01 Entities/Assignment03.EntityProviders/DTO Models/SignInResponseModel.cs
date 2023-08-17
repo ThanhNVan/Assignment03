@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Assignment03.EntityProviders;
+
+public class SignInResponseModel
+{
+    #region [ Properties ]
+    public bool Success { get; set; }
+
+    public string Message { get; set; }
+
+    public SignInSuccessModel Model { get; set; }
+    #endregion
+}

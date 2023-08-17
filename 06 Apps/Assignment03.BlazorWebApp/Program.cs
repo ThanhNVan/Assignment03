@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Syncfusion.Blazor;
 using Assignment03.HttpClientProviders;
+using Blazored.SessionStorage;
 
 namespace Assignment03.BlazorWebApp;
 
@@ -15,6 +16,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddSyncfusionBlazor();
         builder.Services.AddHttpClientProviders(builder.Configuration);
+        builder.Services.AddBlazoredSessionStorage();
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
         builder.Services.AddSingleton<WeatherForecastService>();
