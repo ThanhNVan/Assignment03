@@ -3,6 +3,7 @@ using Assignment03.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Assignment03.BlazorWebApp;
@@ -43,8 +44,14 @@ public partial class ProductMainPage
         }
 
         if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
-            var userList = await HttpClientContext.User.GetListAllAsync(Model.AccessToken);
             this.WorkItemList = await HttpClientContext.Product.GetListAllAsync(Model.AccessToken);
+            if (this.WorkItemList != null) {
+
+                var categoryList = await HttpClientContext.Category.GetListAllAsync(Model.AccessToken);
+                foreach (var item in WorkItemList) {
+                    item.Category = categoryList.FirstOrDefault(x => x.Id == item.CategoryId);
+                }
+            }
         }
     }
     #endregion

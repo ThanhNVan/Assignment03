@@ -9,9 +9,48 @@
     <Unauthorized></Unauthorized>
 } else if (this.Role == default(int)) {
     <span><p>Loading...</p></span>
-} else if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager|| Role == (int)RoleEnums.Employee) {
+} else if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager || Role == (int)RoleEnums.Employee) {
     <PageTitle>Products</PageTitle>
     <SfButton CssClass="e-inherit" IconCss="e-icons e-plus" OnClick="() => AddNew()">Add New Product</SfButton>
+    <SfGrid DataSource="@WorkItemList" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+        <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
+        <GridColumns>
+            <GridColumn Field="@nameof(Product.Name)"></GridColumn>
+            <GridColumn Field="@nameof(Product.Weight)"></GridColumn>
+            <GridColumn Field="@nameof(Product.Price)"></GridColumn>
+            <GridColumn Field="@nameof(Product.InStock)"></GridColumn>
+            <GridColumn Field="@nameof(Product.CategoryId)">
+                <Template>
+                    @{
+                        var product = context as Product;
+                        if (product.Category == null) {
+                            <span>@(product.CategoryId)</span>
+                        } else {
+                            <span>@(product.Category.Name)</span>
+                        }
+
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Product.CreatedAt)" TextAlign="TextAlign.Right">
+                <Template>
+                    @{
+                        var product = context as Product;
+                        <span>@(product.CreatedAt.ToString("MMM dd, yyyy"))</span>
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Product.IsDeleted)" TextAlign="TextAlign.Right"></GridColumn>
+            <GridColumn TextAlign="TextAlign.Right">
+                <Template>
+                    @{
+                        var product = context as Product;
+                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewDetail(product.Id)"></SfButton>
+                    }
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
 } else {
     <Unauthorized></Unauthorized>
 }
