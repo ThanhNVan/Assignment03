@@ -14,15 +14,18 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
     #region [ Fields ]
     protected readonly IHttpClientFactory _httpClientFactory;
     protected readonly ILogger<BaseHttpClientProvider<TEntity>> _logger;
+    protected readonly IEncriptionProvider _encriptionProvider;
     protected string _entityUrl;
     #endregion
 
     #region [ CTor ]
     public BaseHttpClientProvider(IHttpClientFactory httpClientFactory,
-                                    ILogger<BaseHttpClientProvider<TEntity>> logger) {
+                                    ILogger<BaseHttpClientProvider<TEntity>> logger,
+                                    IEncriptionProvider encriptionProvider) {
 
         this._httpClientFactory = httpClientFactory;
         this._logger = logger;
+        this._encriptionProvider = encriptionProvider;
     }
     #endregion
 
@@ -265,8 +268,8 @@ public abstract class BaseHttpClientProvider<TEntity> : IBaseHttpClientProvider<
         var result = this._httpClientFactory.CreateClient(clientName);
 
         if (!string.IsNullOrEmpty(accessToken)) {
-
-            result.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var decryptedAccessToken = this._encriptionProvider.Decrypt(accessToken);
+            result.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", decryptedAccessToken);
         }
 
         return result;

@@ -20,6 +20,7 @@ public static class ServiceEntensions
         services.AddScoped<IRefreshTokenHttpClientProviders, RefreshTokenHttpClientProviders>();
         services.AddScoped<IUserHttpClientProviders, UserHttpClientProviders>();
         services.AddScoped<IUserPhoneHttpClientProviders, UserPhoneHttpClientProviders>();
+        services.AddScoped<IEncriptionProvider, EncriptionProvider>();
 
         services.AddScoped<HttpClientContext>();
     }

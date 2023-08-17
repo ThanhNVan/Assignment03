@@ -2,6 +2,7 @@
 using Assignment03.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
+using SharedLibrary.HttpClientProviders;
 using System.Threading.Tasks;
 
 namespace Assignment03.BlazorWebApp.Pages;
@@ -17,6 +18,9 @@ public partial class Index
 
     [Inject]
     private HttpClientContext HttpClientContext { get; set; }
+
+    [Inject]
+    private IEncriptionProvider Encription { get; set; }
     #endregion
 
     #region [ Properties ]
@@ -45,9 +49,12 @@ public partial class Index
             this.Warning = "Incorrect Email or Password";
             return;
         }
+        var encyptedAccessToken = Encription.Encrypt(result.Model.AccessToken);
+        result.Model.AccessToken = encyptedAccessToken;
 
         await SessionStorage.SetItemAsync(AppUserRole.Model, result.Model);
         await SessionStorage.SetItemAsync(AppUserRole.Role, result.Model.Role);
+
 
         NavigationManager.NavigateTo("Admin/Products", true);
         return;

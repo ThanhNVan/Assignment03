@@ -8,7 +8,8 @@ public class CategoryHttpClientProviders : BaseHttpClientProvider<Category>, ICa
 {
     #region [ CTor ]
     public CategoryHttpClientProviders(IHttpClientFactory httpClientFactory,
-                                    ILogger<BaseHttpClientProvider<Category>> logger) : base(httpClientFactory, logger) {
+                                        ILogger<BaseHttpClientProvider<Category>> logger,
+                                        IEncriptionProvider encriptionProvider) : base(httpClientFactory, logger, encriptionProvider) {
         this._entityUrl = EntityUrl.Category;
     }
     #endregion

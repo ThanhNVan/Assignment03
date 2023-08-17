@@ -10,7 +10,7 @@ namespace Assignment03.HttpClientProviders;
 public class UserPhoneHttpClientProviders : BaseHttpClientProvider<UserPhone>, IUserPhoneHttpClientProviders
 {
     #region [ CTor ]
-    public UserPhoneHttpClientProviders(IHttpClientFactory httpClientFactory, ILogger<BaseHttpClientProvider<UserPhone>> logger) : base(httpClientFactory, logger) {
+    public UserPhoneHttpClientProviders(IHttpClientFactory httpClientFactory, ILogger<BaseHttpClientProvider<UserPhone>> logger, IEncriptionProvider encriptionProvider) : base(httpClientFactory, logger, encriptionProvider) {
         this._entityUrl = EntityUrl.UserPhone;
     }
     #endregion
