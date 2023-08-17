@@ -9,9 +9,10 @@
     <Unauthorized></Unauthorized>
 } else if (this.Role == default(int)) {
     <span><p>Loading...</p></span>
-} else if (Role != (int)RoleEnums.Admin && Role != (int)RoleEnums.Manager) {
-    <Unauthorized></Unauthorized>
-} else {
+} else if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager|| Role == (int)RoleEnums.Employee) {
     <PageTitle>Products</PageTitle>
+    <SfButton CssClass="e-inherit" IconCss="e-icons e-plus" OnClick="() => AddNew()">Add New Product</SfButton>
+} else {
+    <Unauthorized></Unauthorized>
 }
 
