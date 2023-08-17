@@ -39,13 +39,9 @@ public partial class Index
 
         if (result != null) {
             if (result.Model != null) {
-            var signInSuccessModel = (SignInSuccessModel)result.Model;
-            await SessionStorage.SetItemAsync(AppUserRole.Role, signInSuccessModel.Role);
-            await SessionStorage.SetItemAsStringAsync(nameof(User.Email), signInSuccessModel.Email);
-            await SessionStorage.SetItemAsStringAsync(nameof(User.Fullname), signInSuccessModel.Fullname);
-            await SessionStorage.SetItemAsStringAsync(nameof(SignInSuccessModel.AccessToken), signInSuccessModel.AccessToken);
-            await SessionStorage.SetItemAsStringAsync(nameof(SignInSuccessModel.RefreshToken), signInSuccessModel.RefreshToken);
-            NavigationManager.NavigateTo("Admin/Products", true);
+                await SessionStorage.SetItemAsync(AppUserRole.Model, result.Model);
+
+                NavigationManager.NavigateTo("Admin/Products", true);
             }
             this.Warning = "Incorrect Email or Password";
             return;

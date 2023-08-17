@@ -1,0 +1,17 @@
+﻿@page "/Admin/Products"
+@using Assignment03.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+
+@namespace Assignment03.BlazorWebApp
+
+@if (this.Role == default(int)) {
+    <span><p>Loading...</p></span>
+} else if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
+
+    <PageTitle>Products</PageTitle>
+} else {
+
+    <Unauthorized></Unauthorized>
+}
+
