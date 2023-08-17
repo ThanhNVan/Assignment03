@@ -5,13 +5,14 @@
 
 @namespace Assignment03.BlazorWebApp
 
-@if (this.Role == default(int)) {
+@if (this.Role < 0) {
+    <Unauthorized></Unauthorized>
+} else if (this.Role == default(int)) {
     <span><p>Loading...</p></span>
 } else if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
 
     <PageTitle>Products</PageTitle>
 } else {
-
     <Unauthorized></Unauthorized>
 }
 

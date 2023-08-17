@@ -2,7 +2,6 @@
 using Assignment03.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Assignment03.BlazorWebApp.Pages;
@@ -40,6 +39,7 @@ public partial class Index
         if (result != null) {
             if (result.Model != null) {
                 await SessionStorage.SetItemAsync(AppUserRole.Model, result.Model);
+                await SessionStorage.SetItemAsync(AppUserRole.Role, result.Model.Role);
 
                 NavigationManager.NavigateTo("Admin/Products", true);
             }
@@ -49,6 +49,26 @@ public partial class Index
 
         this.Warning = "Incorrect Email or Password";
         return;
+    }
+    #endregion
+
+    #region [ Methods - Override ]
+    protected override async Task OnInitializedAsync() {
+        var model = default(SignInSuccessModel);
+        try {
+            model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
+
+        } catch { }
+
+        if (model == null) {
+            return;
+        }
+
+        if (model.Role == (int)RoleEnums.Admin || model.Role == (int)RoleEnums.Manager) {
+            NavigationManager.NavigateTo("Admin/Products", true);
+        }
+
+        await base.OnInitializedAsync();
     }
     #endregion
 

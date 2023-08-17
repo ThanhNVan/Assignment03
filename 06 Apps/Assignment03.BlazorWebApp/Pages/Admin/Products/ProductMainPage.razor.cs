@@ -32,9 +32,13 @@ public partial class ProductMainPage
     protected override async Task OnInitializedAsync() {
         try {
             this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
-            this.Role = Model.Role;
+            if (Model != null) {
+                this.Role = Model.Role;
+            } else {
+                this.Role = -1;
+            }
 
-        } catch {}
+        } catch { }
 
         if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
             var userList = await HttpClientContext.User.GetListAllAsync(Model.AccessToken);
