@@ -38,7 +38,9 @@ public partial class ProductMainPage
                 this.Role = -1;
             }
 
-        } catch { }
+        } catch {
+            this.Role = -1;
+        }
 
         if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
             var userList = await HttpClientContext.User.GetListAllAsync(Model.AccessToken);

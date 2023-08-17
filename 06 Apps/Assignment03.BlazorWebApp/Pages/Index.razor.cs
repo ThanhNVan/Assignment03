@@ -53,8 +53,6 @@ public partial class Index
         result.Model.AccessToken = encyptedAccessToken;
 
         await SessionStorage.SetItemAsync(AppUserRole.Model, result.Model);
-        await SessionStorage.SetItemAsync(AppUserRole.Role, result.Model.Role);
-
 
         NavigationManager.NavigateTo("Admin/Products", true);
         return;

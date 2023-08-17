@@ -1,8 +1,4 @@
-﻿@using Blazored.SessionStorage;
-@using Assignment03.EntityProviders;
-
-
-<div class="top-row ps-3 navbar navbar-dark">
+﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Assignment03</a>
     </div>
@@ -10,14 +6,6 @@
 
 <div>
     <nav class="flex-column">
-        @if (Role == default(int)) {
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Home
-                </NavLink>
-            </div>
-        }
-        @if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="Admin/Products" Match="NavLinkMatch.All">
                     <span class="oi oi-calculator" aria-hidden="true"></span> Products
@@ -41,29 +29,13 @@
                     <span class="oi oi-people" aria-hidden="true"></span> Users
                 </NavLink>
             </div>
-        }
-        @if (Role != default(int)) {
+
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="Logout">
                     <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
                 </NavLink>
             </div>
-        }
+
     </nav>
 </div>
-
-@code {
-    [Inject]
-    private ISessionStorageService SessionStorage { get; set; }
-
-    private int Role { get; set; }
-
-    protected override async Task OnInitializedAsync() {
-        try {
-            Role = await SessionStorage.GetItemAsync<int>(AppUserRole.Role);
-        } catch { }
-
-        StateHasChanged();
-    }
-}
 
