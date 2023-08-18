@@ -1,0 +1,41 @@
+﻿@page "/Admin/Categories"
+@using Assignment03.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+
+@namespace Assignment03.BlazorWebApp
+
+@if (this.Role < 0) {
+    <Unauthorized></Unauthorized>
+} else if (this.Role == default(int)) {
+    <span><p>Loading...</p></span>
+} else if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager || Role == (int)RoleEnums.Employee) {
+    <PageTitle>Users</PageTitle>
+    <SfButton CssClass="e-inherit" IconCss="e-icons e-plus" OnClick="() => AddNew()">Add New Category</SfButton>
+    <SfGrid DataSource="@WorkItemList" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+        <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
+        <GridColumns>
+            <GridColumn Field="@nameof(Category.Name)"></GridColumn>
+            <GridColumn Field="@nameof(Category.CreatedAt)" TextAlign="TextAlign.Right">
+                <Template>
+                    @{
+                        var Category = context as Category;
+                        <span>@(Category.CreatedAt.ToString("MMM dd, yyyy"))</span>
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Category.IsDeleted)" TextAlign="TextAlign.Right"></GridColumn>
+            <GridColumn TextAlign="TextAlign.Right" Width="8%">
+                <Template>
+                    @{
+                        var Category = context as Category;
+                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewDetail(Category.Id)"></SfButton>
+                    }
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
+} else {
+    <Unauthorized></Unauthorized>
+}
+

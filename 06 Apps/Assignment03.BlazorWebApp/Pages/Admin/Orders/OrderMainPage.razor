@@ -1,0 +1,52 @@
+﻿@page "/Admin/Orders"
+@using Assignment03.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+
+@namespace Assignment03.BlazorWebApp
+
+@if (this.Role < 0) {
+    <Unauthorized></Unauthorized>
+} else if (this.Role == default(int)) {
+    <span><p>Loading...</p></span>
+} else if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager || Role == (int)RoleEnums.Employee) {
+    <PageTitle>Orders</PageTitle>
+    <SfButton CssClass="e-inherit" IconCss="e-icons e-plus" OnClick="() => AddNew()">Add New Order</SfButton>
+    <SfGrid DataSource="@WorkItemList" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+        <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
+        <GridColumns>
+            <GridColumn Field="@nameof(Order.Freight)"></GridColumn>
+            <GridColumn Field="@nameof(Order.UserId)" HeaderText="User" HeaderTextAlign="TextAlign.Center">
+                <Template>
+                    @{
+                        var order = context as Order;
+                        if (order.User == null) {
+                            <span>@(order.UserId)</span>
+                        } else {
+                            <span>@(order.User.Email)</span>
+                        }
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Order.OrderDate)" HeaderText="Order Date" HeaderTextAlign="TextAlign.Center" TextAlign="TextAlign.Right">
+                <Template>
+                    @{
+                        var order = context as Order;
+                        <span>@(order.CreatedAt.ToString("MMM dd, yyyy"))</span>
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Order.IsDeleted)" TextAlign="TextAlign.Right"></GridColumn>
+            <GridColumn TextAlign="TextAlign.Right" Width="8%">
+                <Template>
+                    @{
+                        var order = context as Order;
+                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewDetail(order.Id)"></SfButton>
+                    }
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
+} else {
+    <Unauthorized></Unauthorized>
+}
