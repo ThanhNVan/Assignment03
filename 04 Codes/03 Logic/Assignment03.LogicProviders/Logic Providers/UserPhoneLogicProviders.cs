@@ -11,4 +11,13 @@ public class UserPhoneLogicProviders : BaseLogicProvider<UserPhone, IUserPhoneDa
     public UserPhoneLogicProviders(ILogger<BaseLogicProvider<UserPhone, IUserPhoneDataProviders>> logger, IUserPhoneDataProviders dataProvider) : base(logger, dataProvider) {
     }
     #endregion
+
+    #region [ Methods - List ]
+    public async Task<IList<UserPhone>> GetListByUserIdAsync(string userId) {
+        if (string.IsNullOrEmpty(userId)) {
+            return null;
+        }
+        return await this._dataProvider.GetListByUserIdAsync(userId);
+    }
+    #endregion
 }

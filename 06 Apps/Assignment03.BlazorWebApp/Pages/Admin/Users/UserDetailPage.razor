@@ -1,0 +1,63 @@
+﻿@page "/Admin/Users/Details/{Id}"
+@using Assignment03.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.DropDowns
+
+@namespace Assignment03.BlazorWebApp
+
+@if (this.Role < 0) {
+    <Unauthorized></Unauthorized>
+} else if (this.Role == default(int)) {
+    <span><p>Loading...</p></span>
+} else if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager || Role == (int)RoleEnums.Employee) {
+    <PageTitle>Users</PageTitle>
+
+    <h4>User Details</h4>
+
+    <div class="col-lg-12">
+        <EditForm Model="@WorkItem">
+            <div style="padding-top: 20px;">
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="Firstname" @bind-Value="@WorkItem.Firstname" Enabled="true" Placeholder="Firstname" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                    <ValidationMessage style="color: #dc3545; height: 0px" For="@(() => WorkItem.Firstname)" />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="Lastname" @bind-Value="@WorkItem.Lastname" Enabled="true" Placeholder="Lastname" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                    <ValidationMessage style="color: #dc3545; height: 0px" For="@(() => WorkItem.Lastname)" />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="Email" @bind-Value="@WorkItem.Email" Enabled="true" Placeholder="Email" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                    <ValidationMessage style="color: #dc3545; height: 0px" For="@(() => WorkItem.Email)" />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfTextBox Type="InputType.Password" ID="PasswordHash" @bind-Value="@WorkItem.PasswordHash" Enabled="true" Placeholder="Password" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                    <ValidationMessage style="color: #dc3545; height: 0px" For="@(() => WorkItem.PasswordHash)" />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <span>Role</span>
+                    <SfDropDownList @bind-Value=@(WorkItem.Role) DataSource="RoleList" Placeholder="Role">
+                        <DropDownListFieldSettings Value="Key" Text="Value">
+                        </DropDownListFieldSettings>
+                    </SfDropDownList>
+                    <ValidationMessage style="color: #dc3545; height: 0px" For="@(() => WorkItem.Role)" />
+                </div>
+                @if (UserPhoneList != null) {
+                    @foreach (var item in UserPhoneList) {
+                        <div class="form-group col-md-6">
+                            <SfTextBox Type="InputType.Tel" ID="PasswordHash" @bind-Value="item.Phone" Enabled="true" Placeholder="Phone" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                            <ValidationMessage style="color: #dc3545; height: 0px" For="@(() => item.Phone)" />
+                        </div>
+                    }
+                }
+            </div>
+        </EditForm>
+    </div>
+} else {
+    <Unauthorized></Unauthorized>
+}

@@ -30,5 +30,7 @@ public static class MethodUrl
     public static string SignIn = "/SignIn/";
 
     public static string GetSingleByEmail = "/GetSingleByEmail/";
+
+    public static string GetListByUserId = "/GetListByUserId/";
     #endregion
 }
