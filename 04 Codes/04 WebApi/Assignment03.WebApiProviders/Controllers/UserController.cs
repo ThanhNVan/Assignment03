@@ -16,7 +16,7 @@ public class UserController : BaseWebApiController<User, IUserLogicProviders>
     #endregion
 
     #region [ CTor ]
-    public UserController(ILogger<BaseWebApiController<User, IUserLogicProviders>> logger, 
+    public UserController(ILogger<UserController> logger, 
                             IUserLogicProviders logicProvider, 
                             LogicContext logicContext, 
                             IAuthenticationProvider authenticationProvider) 

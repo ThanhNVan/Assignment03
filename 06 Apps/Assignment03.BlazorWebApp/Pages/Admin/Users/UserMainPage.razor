@@ -5,60 +5,55 @@
 
 @namespace Assignment03.BlazorWebApp
 
-@if (this.Role < 0) {
-    <Unauthorized></Unauthorized>
-} else if (this.Role == default(int)) {
-    <span><p>Loading...</p></span>
-} else if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager || Role == (int)RoleEnums.Employee) {
-    <PageTitle>Users</PageTitle>
-    <SfButton CssClass="e-inherit" IconCss="e-icons e-plus" OnClick="() => AddNew()">Add New User</SfButton>
-    <SfGrid DataSource="@WorkItemList" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
-        <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
-        <GridColumns>
-            <GridColumn Field="@nameof(User.Fullname)"></GridColumn>
-            <GridColumn Field="@nameof(User.Email)"></GridColumn>
-            <GridColumn Field="@nameof(User.Role)">
-                <Template>
-                    @{
-                        var user = context as User;
-                        switch (user.Role) {
-                            case (int)RoleEnums.Manager:
-                                <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
-                                break;
-                            case (int)RoleEnums.Admin:
-                                <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
-                                break;
-                            case (int)RoleEnums.Employee:
-                                <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
-                                break;
-                            case (int)RoleEnums.Customer:
-                                <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
-                                break;
-                            default:
-                                break;
-                        }
+
+<PageTitle>Users</PageTitle>
+<SfButton CssClass="e-inherit" IconCss="e-icons e-plus" OnClick="() => AddNew()">Add New User</SfButton>
+<SfGrid DataSource="@WorkItemList" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+    <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field="@nameof(User.Fullname)"></GridColumn>
+        <GridColumn Field="@nameof(User.Email)"></GridColumn>
+        <GridColumn Field="@nameof(User.Role)">
+            <Template>
+                @{
+                    var user = context as User;
+                    switch (user.Role)
+                    {
+                        case (int)RoleEnums.Manager:
+                            <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
+                            break;
+                        case (int)RoleEnums.Admin:
+                            <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
+                            break;
+                        case (int)RoleEnums.Employee:
+                            <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
+                            break;
+                        case (int)RoleEnums.Customer:
+                            <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
+                            break;
+                        default:
+                            break;
                     }
-                </Template>
-            </GridColumn>
-            <GridColumn Field="@nameof(User.CreatedAt)" TextAlign="TextAlign.Right">
-                <Template>
-                    @{
-                        var User = context as User;
-                        <span>@(User.CreatedAt.ToString("MMM dd, yyyy"))</span>
-                    }
-                </Template>
-            </GridColumn>
-            <GridColumn Field="@nameof(User.IsDeleted)" TextAlign="TextAlign.Right"></GridColumn>
-            <GridColumn TextAlign="TextAlign.Right" Width="8%">
-                <Template>
-                    @{
-                        var User = context as User;
-                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewDetail(User.Id)"></SfButton>
-                    }
-                </Template>
-            </GridColumn>
-        </GridColumns>
-    </SfGrid>
-} else {
-    <Unauthorized></Unauthorized>
-}
+                }
+            </Template>
+        </GridColumn>
+        <GridColumn Field="@nameof(User.CreatedAt)" TextAlign="TextAlign.Right">
+            <Template>
+                @{
+                    var User = context as User;
+                    <span>@(User.CreatedAt.ToString("MMM dd, yyyy"))</span>
+                }
+            </Template>
+        </GridColumn>
+        <GridColumn Field="@nameof(User.IsDeleted)" TextAlign="TextAlign.Right"></GridColumn>
+        <GridColumn TextAlign="TextAlign.Right" Width="8%">
+            <Template>
+                @{
+                    var User = context as User;
+                    <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewDetail(User.Id)"></SfButton>
+                }
+            </Template>
+        </GridColumn>
+    </GridColumns>
+</SfGrid>
+

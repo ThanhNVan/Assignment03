@@ -1,5 +1,4 @@
-using Assignment03.EntityProviders;
-using  Assignment03.HttpClientProviders;
+using Assignment03.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +9,8 @@ namespace Assignment03.BlazorWebApp;
 
 public class Program
 {
-    public static void Main(string[] args) {
+    public static void Main(string[] args)
+    {
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
@@ -24,7 +24,8 @@ public class Program
 
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["SyncfusionKey"]);
         // Configure the HTTP request pipeline.
-        if (!app.Environment.IsDevelopment()) {
+        if (!app.Environment.IsDevelopment())
+        {
             app.UseExceptionHandler("/Error");
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();

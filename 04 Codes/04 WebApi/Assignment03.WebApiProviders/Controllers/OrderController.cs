@@ -8,7 +8,7 @@ namespace Assignment03.WebApiProviders;
 public class OrderController : BaseWebApiController<Order, IOrderLogicProviders>
 {
     #region [ CTor ]
-    public OrderController(ILogger<BaseWebApiController<Order, IOrderLogicProviders>> logger, IOrderLogicProviders logicProvider, LogicContext logicContext) : base(logger, logicProvider, logicContext) {
+    public OrderController(ILogger<OrderController> logger, IOrderLogicProviders logicProvider, LogicContext logicContext) : base(logger, logicProvider, logicContext) {
     }
     #endregion
 }

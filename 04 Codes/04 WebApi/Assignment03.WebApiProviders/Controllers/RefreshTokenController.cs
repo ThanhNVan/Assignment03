@@ -8,7 +8,7 @@ namespace Assignment03.WebApiProviders;
 public class RefreshTokenController : BaseWebApiController<RefreshToken, IRefreshTokenLogicProviders>
 {
     #region [ CTor ]
-    public RefreshTokenController(ILogger<BaseWebApiController<RefreshToken, IRefreshTokenLogicProviders>> logger, IRefreshTokenLogicProviders logicProvider, LogicContext logicContext) : base(logger, logicProvider, logicContext) {
+    public RefreshTokenController(ILogger<RefreshTokenController> logger, IRefreshTokenLogicProviders logicProvider, LogicContext logicContext) : base(logger, logicProvider, logicContext) {
     }
     #endregion
 }

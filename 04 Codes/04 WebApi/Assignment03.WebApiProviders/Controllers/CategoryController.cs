@@ -8,7 +8,7 @@ namespace Assignment03.WebApiProviders;
 public class CategoryController : BaseWebApiController<Category, ICategoryLogicProviders>
 {
     #region [ CTor ]
-    public CategoryController(ILogger<BaseWebApiController<Category, ICategoryLogicProviders>> logger, ICategoryLogicProviders logicProvider, LogicContext logicContext) : base(logger, logicProvider, logicContext) {
+    public CategoryController(ILogger<CategoryController> logger, ICategoryLogicProviders logicProvider, LogicContext logicContext) : base(logger, logicProvider, logicContext) {
     }
     #endregion
 }

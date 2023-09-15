@@ -21,40 +21,30 @@ public partial class UserMainPage
     #endregion
 
     #region [ Properties ]
-    private int Role { get; set; }
-
     private SignInSuccessModel Model { get; set; }
 
     public IList<User> WorkItemList { get; set; }
     #endregion
 
     #region [ Methods - Override ]
-    protected override async Task OnInitializedAsync() {
-        try {
-            this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
-            if (Model != null) {
-                this.Role = Model.Role;
-            } else {
-                this.Role = -1;
-            }
+    protected override async Task OnInitializedAsync()
+    {
 
-        } catch {
-            this.Role = -1;
-        }
+        this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
 
-        if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
-            this.WorkItemList = await HttpClientContext.User.GetListAllAsync(Model.AccessToken);
+        this.WorkItemList = await HttpClientContext.User.GetListAllAsync(Model.AccessToken);
 
-        }
     }
     #endregion
 
     #region [ Private Methods -  ]
-    private void ViewDetail(string userId) {
+    private void ViewDetail(string userId)
+    {
         this.NavigationManager.NavigateTo($"/Admin/Users/Details/{userId}");
     }
 
-    private void AddNew() {
+    private void AddNew()
+    {
         this.NavigationManager.NavigateTo("/Admin/Users/New");
     }
     #endregion
