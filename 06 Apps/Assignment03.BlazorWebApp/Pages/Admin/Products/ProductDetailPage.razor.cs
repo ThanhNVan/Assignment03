@@ -24,8 +24,6 @@ public partial class ProductDetailPage
     [Parameter]
     public string Id { get; set; }
 
-    private int Role { get; set; }
-
     private SignInSuccessModel Model { get; set; }
 
     public Product WorkItem { get; set; }
@@ -35,27 +33,34 @@ public partial class ProductDetailPage
     #region [ Methods - Override ]
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
-            if (Model != null)
-            {
-                this.Role = Model.Role;
-            } else
-            {
-                this.Role = -1;
-            }
 
-        } catch
-        {
-            this.Role = -1;
-        }
+        this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
 
-        if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager)
-        {
-            this.WorkItem = await HttpClientContext.Product.GetSingleByIdAsync(Id, Model.AccessToken);
-            this.WorkItem.Category = await HttpClientContext.Category.GetSingleByIdAsync(this.WorkItem.CategoryId, Model.AccessToken);
-        }
+        this.WorkItem = await HttpClientContext.Product.GetSingleByIdAsync(Id, Model.AccessToken);
+        this.WorkItem.Category = await HttpClientContext.Category.GetSingleByIdAsync(this.WorkItem.CategoryId, Model.AccessToken);
+
+    }
+    #endregion
+
+    #region [ Methods - Private ]
+    private async Task UpdateAsync()
+    {
+
+    }
+
+    private async Task CancelAsync()
+    {
+        await this.OnInitializedAsync();
+    }
+
+    private async Task RecoverAsync()
+    {
+
+    }
+
+    private async Task SoftDeleteAsync()
+    {
+
     }
     #endregion
 }

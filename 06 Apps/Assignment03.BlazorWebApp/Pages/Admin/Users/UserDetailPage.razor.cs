@@ -39,25 +39,37 @@ public partial class UserDetailPage
     #endregion
 
     #region [ Methods - Override ]
-    protected override async Task OnInitializedAsync() {
-        try {
-            this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
-            if (Model != null) {
-                this.Role = Model.Role;
-            } else {
-                this.Role = -1;
-            }
+    protected override async Task OnInitializedAsync()
+    {
 
-        } catch {
-            this.Role = -1;
-        }
+        this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
 
-        if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
-            this.WorkItem = await HttpClientContext.User.GetSingleByIdAsync(Id, Model.AccessToken);
-            this.RoleList = Enum.GetValues(typeof(RoleEnums)).Cast<RoleEnums>()
-                .Select( x => new KeyValueModel { Key = (int)x,  Value = x.ToString()}).ToList();
-            this.UserPhoneList = await this.HttpClientContext.UserPhone.GetListByUserIdAsync(this.Id,Model.AccessToken);
-        }
+        this.WorkItem = await HttpClientContext.User.GetSingleByIdAsync(Id, Model.AccessToken);
+        this.RoleList = Enum.GetValues(typeof(RoleEnums)).Cast<RoleEnums>()
+            .Select(x => new KeyValueModel { Key = (int)x, Value = x.ToString() }).ToList();
+        this.UserPhoneList = await this.HttpClientContext.UserPhone.GetListByUserIdAsync(this.Id, Model.AccessToken);
+
+    }
+    #endregion
+
+    #region [ Methods - Private ]
+    private async Task UpdateAsync() { 
+    
+    }
+
+    private async Task CancelAsync()
+    {
+        await this.OnInitializedAsync();
+    }
+
+    private async Task RecoverAsync()
+    {
+
+    }
+
+    private async Task SoftDeleteAsync()
+    {
+
     }
     #endregion
 }

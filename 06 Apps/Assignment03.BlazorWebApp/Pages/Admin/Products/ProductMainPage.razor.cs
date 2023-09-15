@@ -22,46 +22,39 @@ public partial class ProductMainPage
     #endregion
 
     #region [ Properties ]
-    private int Role { get; set; }
-
     private SignInSuccessModel Model { get; set; }
 
     public IList<Product> WorkItemList { get; set; }
     #endregion
 
     #region [ Methods - Override ]
-    protected override async Task OnInitializedAsync() {
-        try {
-            this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
-            if (Model != null) {
-                this.Role = Model.Role;
-            } else {
-                this.Role = -1;
-            }
+    protected override async Task OnInitializedAsync()
+    {
 
-        } catch {
-            this.Role = -1;
-        }
+        this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
 
-        if (Role == (int)RoleEnums.Admin || Role == (int)RoleEnums.Manager) {
-            this.WorkItemList = await HttpClientContext.Product.GetListAllAsync(Model.AccessToken);
-            if (this.WorkItemList != null) {
+        this.WorkItemList = await HttpClientContext.Product.GetListAllAsync(Model.AccessToken);
+        if (this.WorkItemList != null)
+        {
 
-                var categoryList = await HttpClientContext.Category.GetListAllAsync(Model.AccessToken);
-                foreach (var item in WorkItemList) {
-                    item.Category = categoryList.FirstOrDefault(x => x.Id == item.CategoryId);
-                }
+            var categoryList = await HttpClientContext.Category.GetListAllAsync(Model.AccessToken);
+            foreach (var item in WorkItemList)
+            {
+                item.Category = categoryList.FirstOrDefault(x => x.Id == item.CategoryId);
             }
         }
+
     }
     #endregion
 
     #region [ Private Methods -  ]
-    private void ViewDetail(string productId) {
+    private void ViewDetail(string productId)
+    {
         this.NavigationManager.NavigateTo($"/Admin/Products/Details/{productId}");
     }
 
-    private void AddNew() {
+    private void AddNew()
+    {
         this.NavigationManager.NavigateTo("/Admin/Products/New");
     }
     #endregion
