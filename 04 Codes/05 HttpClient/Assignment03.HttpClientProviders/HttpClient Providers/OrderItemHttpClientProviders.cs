@@ -19,7 +19,7 @@ public class OrderItemHttpClientProviders : BaseHttpClientProvider<OrderItem>, I
     {
         try
         {
-            var url = this._entityUrl + MethodUrl.GetListOrderId + orderId;
+            var url = this._entityUrl + MethodUrl.GetListByOrderId + orderId;
 
             var httpClient = this.CreateClient(accessToken: accessToken);
 

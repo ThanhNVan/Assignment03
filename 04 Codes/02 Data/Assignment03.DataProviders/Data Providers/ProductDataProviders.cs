@@ -11,4 +11,22 @@ public class ProductDataProviders : BaseDataProvider<Product, AppDbContext>, IPr
     public ProductDataProviders(ILogger<BaseDataProvider<Product, AppDbContext>> logger, IDbContextFactory<AppDbContext> dbContextFactory) : base(logger, dbContextFactory) {
     }
     #endregion
+
+    #region [ Methods - List ]
+    public async Task<IList<Product>> GetListByOrderIdAsync(string categoryId)
+    {
+        try
+        {
+            using var context = await this.GetContextAsync();
+            var result = await context.Products.AsNoTracking().Where(x => x.IsDeleted == false &&
+                                                                        x.CategoryId == categoryId)
+                                                    .OrderByDescending(x => x.LastUpdatedAt).ToListAsync();
+            return result;
+        } catch (Exception ex)
+        {
+            this._logger.LogError(ex.Message);
+            return null;
+        }
+    }
+    #endregion
 }

@@ -5,4 +5,7 @@ namespace Assignment03.DataProviders;
 
 public interface IProductDataProviders: IBaseDataProvider<Product>
 {
+    #region [ Methods - List ]
+    Task<IList<Product>> GetListByOrderIdAsync(string categoryId);
+    #endregion
 }

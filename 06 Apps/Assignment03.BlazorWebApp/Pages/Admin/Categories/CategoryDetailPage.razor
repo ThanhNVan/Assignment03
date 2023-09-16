@@ -1,0 +1,81 @@
+﻿@page "/Admin/Categories/Details/{Id}"
+@using Assignment03.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.DropDowns
+
+@namespace Assignment03.BlazorWebApp
+
+<PageTitle>Categories</PageTitle>
+<h3>Category Detail</h3>
+@if (this.WorkItem == null)
+{
+    <span><p>Loading...</p></span>
+} else
+{
+    <div class="col-lg-12">
+        <EditForm Model="@WorkItem">
+            <div style="padding-top: 20px;">
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="Name" Value="@WorkItem.Name" Placeholder="Name" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                </div>
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="IsDeleted" Readonly=true Value="@WorkItem.IsDeleted.ToString()" Placeholder="Is Deleted" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                </div>
+            </div>
+
+            <div>
+                <div class="form-group col-md-6" style="padding-top: 10px;">
+                    <SfButton @onclick="async () => await UpdateAsync()" style="margin:10px;" CssClass="e-warning">Update</SfButton>
+                    <SfButton @onclick="async () => await CancelAsync()" style="margin:10px;" CssClass="e-info">Cancel</SfButton>
+                    @if (this.WorkItem.IsDeleted)
+                    {
+                        <SfButton @onclick="async () => await RecoverAsync()" style="margin:10px;" CssClass="e-success">Recover</SfButton>
+                    } else
+                    {
+                        <SfButton @onclick="async () => await SoftDeleteAsync()" style="margin:10px;" CssClass="e-danger">Delete</SfButton>
+                    }
+                </div>
+            </div>
+
+            @if (this.WorkItem.Products == null)
+            {
+                <div class="form-group col-md-6">
+                    <span><p>Loading...</p></span>
+                </div>
+            } else
+            {
+                <div>
+                    <span><p>Products</p></span>
+                    <SfGrid DataSource="@this.WorkItem.Products" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+                        <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
+                        <GridColumns>
+                            <GridColumn Field="@nameof(Product.Name)"></GridColumn>
+                            <GridColumn Field="@nameof(Product.Weight)"></GridColumn>
+                            <GridColumn Field="@nameof(Product.Price)"></GridColumn>
+                            <GridColumn Field="@nameof(Product.InStock)"></GridColumn>
+                            <GridColumn Field="@nameof(Product.CreatedAt)" TextAlign="TextAlign.Right">
+                                <Template Context="childContext">
+                                    @{
+                                        var product = childContext as Product;
+                                        <span>@(product.CreatedAt.ToString("MMM dd, yyyy"))</span>
+                                    }
+                                </Template>
+                            </GridColumn>
+                            <GridColumn Field="@nameof(Product.IsDeleted)" TextAlign="TextAlign.Right"></GridColumn>
+                            <GridColumn TextAlign="TextAlign.Right" Width="8%">
+                                <Template Context="childContext">
+                                    @{
+                                        var product = childContext as Product;
+                                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewProductDetail(product.Id)"></SfButton>
+                                    }
+                                </Template>
+                            </GridColumn>
+                        </GridColumns>
+                    </SfGrid>
+                </div>
+            }
+        </EditForm>
+    </div>
+}

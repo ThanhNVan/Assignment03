@@ -5,4 +5,7 @@ namespace Assignment03.LogicProviders;
 
 public interface IProductLogicProviders : IBaseLogicProvider<Product>
 {
+    #region [ Methods - List ]
+    Task<IList<Product>> GetListByOrderIdAsync(string categoryId);    
+    #endregion
 }

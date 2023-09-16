@@ -7,6 +7,7 @@
 
 <PageTitle>Orders</PageTitle>
 <SfButton CssClass="e-inherit" IconCss="e-icons e-plus" OnClick="() => AddNew()">Add New Order</SfButton>
+<SfButton CssClass="e-inherit" IconCss="e-icons e-agenda-date-range" OnClick="() => AddNew()">View Report</SfButton>
 <SfGrid DataSource="@WorkItemList" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
     <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
     <GridColumns>

@@ -16,7 +16,7 @@ public class OrderItemController : BaseWebApiController<OrderItem, IOrderItemLog
     #endregion
 
     #region [ Methods - List ]
-    [HttpGet(nameof(MethodUrl.GetListOrderId) + "/{orderId}")]
+    [HttpGet(nameof(MethodUrl.GetListByOrderId) + "/{orderId}")]
     public async Task<IActionResult> GetListByOrderIdAsync(string orderId)
     {
         try

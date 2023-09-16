@@ -46,6 +46,10 @@
                     </div>
                 }
 
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="IsDeleted" Readonly=true Value="@WorkItem.IsDeleted.ToString()" Placeholder="Is Deleted" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                </div>
+
                 @if (this.WorkItem.OrderItems == null)
                 {
                     <div class="form-group col-md-6">

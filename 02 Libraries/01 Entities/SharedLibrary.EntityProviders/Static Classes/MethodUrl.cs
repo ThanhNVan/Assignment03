@@ -33,6 +33,8 @@ public static class MethodUrl
 
     public static string GetListByUserId = "/GetListByUserId/";
 
-    public static string GetListOrderId = "/GetListOrderId/";
+    public static string GetListByOrderId = "/GetListByOrderId/";
+
+    public static string GetListByCategoryId = "/GetListByCategoryId/";
     #endregion
 }

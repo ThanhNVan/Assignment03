@@ -2,16 +2,12 @@
 using Assignment03.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
-using Syncfusion.Blazor.Inputs;
-using Syncfusion.Blazor.Maps;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Assignment03.BlazorWebApp;
 
-public partial class ProductDetailPage
+public partial class CategoryDetailPage
 {
-
     #region [ Properties - Inject ]
     [Inject]
     private NavigationManager NavigationManager { get; set; }
@@ -21,8 +17,6 @@ public partial class ProductDetailPage
 
     [Inject]
     private HttpClientContext HttpClientContext { get; set; }
-
-    SfTextBox CategoryTextBox;
     #endregion
 
     #region [ Properties ]
@@ -31,19 +25,18 @@ public partial class ProductDetailPage
 
     private SignInSuccessModel Model { get; set; }
 
-    public Product WorkItem { get; set; }
-
+    public Category WorkItem { get; set; }
     #endregion
 
     #region [ Methods - Override ]
     protected override async Task OnInitializedAsync()
     {
-
         this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
-
-        this.WorkItem = await HttpClientContext.Product.GetSingleByIdAsync(Id, Model.AccessToken);
-        this.WorkItem.Category = await HttpClientContext.Category.GetSingleByIdAsync(this.WorkItem.CategoryId, Model.AccessToken);
-
+        this.WorkItem = await HttpClientContext.Category.GetSingleByIdAsync(Id, Model.AccessToken);
+        if (this.WorkItem != null)
+        {
+            this.WorkItem.Products = await HttpClientContext.Product.GetListByCategoryIdAsync(this.WorkItem.Id, Model.AccessToken);
+        }
     }
     #endregion
 
@@ -68,15 +61,9 @@ public partial class ProductDetailPage
 
     }
 
-    private async Task AddInfoIcon()
+    private void ViewProductDetail(string productId)
     {
-        var click = EventCallback.Factory.Create<MouseEventArgs>(this, CategoryInfoClick);
-        await this.CategoryTextBox.AddIconAsync("append", "e-icons e-circle-info", new Dictionary<string, object>() { { "onclick", click } });
-    }
-
-    private void CategoryInfoClick()
-    {
-        this.NavigationManager.NavigateTo($"/Admin/Categories/Details/{this.WorkItem.CategoryId}");
+        this.NavigationManager.NavigateTo($"/Admin/Products/Details/{productId}");
     }
     #endregion
 }
