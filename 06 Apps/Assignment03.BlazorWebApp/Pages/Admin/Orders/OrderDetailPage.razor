@@ -1,0 +1,98 @@
+﻿@page "/Admin/Orders/Details/{Id}"
+@using Assignment03.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.DropDowns
+
+@namespace Assignment03.BlazorWebApp
+
+<PageTitle>Orders</PageTitle>
+<h3>Order Detail</h3>
+
+@if (WorkItem == null)
+{
+    <span><p>Loading...</p></span>
+} else
+{
+    <div class="col-lg-12">
+        <EditForm Model="@WorkItem">
+            <div style="padding-top: 20px;">
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="OrderDate" Readonly=true Value="@WorkItem.OrderDate.ToString("MMM dd, yyyy")" Placeholder="Ordered Date" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="RequiredDate" Readonly=true Value="@WorkItem.RequiredDate.Value.ToString("MMM dd, yyyy")" Placeholder="Required Date" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="ShippedDate" Readonly=true Value="@WorkItem.ShippedDate.Value.ToString("MMM dd, yyyy")" Placeholder="Shipped Date" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfNumericTextBox ID="Freight" Readonly=true Value="@WorkItem.Freight" Placeholder="Freight" FloatLabelType="FloatLabelType.Always"></SfNumericTextBox>
+                </div>
+                @if (this.WorkItem.User == null)
+                {
+                    <div class="form-group col-md-6">
+                        <span><p>Loading...</p></span>
+                    </div>
+                } else
+                {
+
+                    <div class="form-group col-md-6">
+                        <SfTextBox @ref="UserEmailTextBox" Readonly=true Value="@WorkItem.User.Email" Placeholder="Email" FloatLabelType="FloatLabelType.Always" Created="async () => await AddInfoIcon()"></SfTextBox>
+                    </div>
+                }
+
+                @if (this.WorkItem.OrderItems == null)
+                {
+                    <div class="form-group col-md-6">
+                        <span><p>Loading...</p></span>
+                    </div>
+                } else
+                {
+                    <br />
+                    <span><p>Order Items</p></span>
+                    <SfGrid DataSource="@WorkItem.OrderItems" Height="400">
+                        <GridColumns>
+                            <GridColumn Field="@nameof(OrderItem.Quantity)"></GridColumn>
+                            <GridColumn Field="@nameof(OrderItem.Discount)">
+                                <Template Context="orderItemContext">
+                                    @{
+                                        var orderItem = orderItemContext as OrderItem;
+                                        <span>@(orderItem.Discount + " %")</span>
+                                    }
+                                </Template>
+                            </GridColumn>
+                            <GridColumn Field="@nameof(OrderItem.ProductId)" HeaderText="Product">
+                                <Template Context="orderItemContext">
+                                    @{
+                                        var orderItem = orderItemContext as OrderItem;
+                                        if (orderItem.Product == null)
+                                        {
+                                            <span>@(orderItem.ProductId)</span>
+                                        } else
+                                        {
+                                            <span>@(orderItem.Product.Name)</span>
+                                        }
+                                    }
+                                </Template>
+                            </GridColumn>
+                            <GridColumn TextAlign="TextAlign.Right" Width="8%">
+                                <Template Context="orderItemContext">
+                                    @{
+                                        var orderItem = orderItemContext as OrderItem;
+                                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewProductDetail(orderItem.ProductId)"></SfButton>
+                                    }
+                                </Template>
+                            </GridColumn>
+                        </GridColumns>
+                    </SfGrid>
+                }
+
+            </div>
+        </EditForm>
+    </div>
+}

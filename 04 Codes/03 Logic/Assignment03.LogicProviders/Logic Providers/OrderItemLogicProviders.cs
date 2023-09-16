@@ -8,7 +8,23 @@ namespace Assignment03.LogicProviders;
 internal class OrderItemLogicProviders : BaseLogicProvider<OrderItem, IOrderItemDataProviders>, IOrderItemLogicProviders
 {
     #region [ CTor ]
-    public OrderItemLogicProviders(ILogger<BaseLogicProvider<OrderItem, IOrderItemDataProviders>> logger, IOrderItemDataProviders dataProvider) : base(logger, dataProvider) {
+    public OrderItemLogicProviders(ILogger<OrderItemLogicProviders> logger, IOrderItemDataProviders dataProvider) : base(logger, dataProvider) {
+    }
+    #endregion
+
+    #region [ Methods - List ]
+    public async Task<IList<OrderItem>> GetListByOrderIdAsync(string orderId)
+    {
+        var result = default(IList<OrderItem>);
+
+        if (string.IsNullOrEmpty(orderId))
+        {
+            return result;
+        }
+
+        result = await this._dataProvider.GetListByOrderIdAsync(orderId);
+
+        return result;
     }
     #endregion
 }

@@ -67,7 +67,7 @@ public abstract class BaseWebApiController<TEntity, TLogicProvider> : Controller
             var result = await this._logicProvider.GetSingleByIdAsync(id);
 
             if (result == null) {
-                return BadRequest("Empty");
+                return NotFound("Empty");
             }
 
             return Ok(result);
