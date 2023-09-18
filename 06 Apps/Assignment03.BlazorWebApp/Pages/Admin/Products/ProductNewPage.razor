@@ -1,4 +1,4 @@
-﻿@page "/Admin/Products/Details/{Id}"
+﻿@page "/Admin/Products/New"
 @using Assignment03.EntityProviders;
 @using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Buttons
@@ -9,9 +9,8 @@
 
 
 <PageTitle>Product</PageTitle>
-<h3>Product Detail</h3>
-
-@if (WorkItem == null)
+<h3>New Product</h3>
+@if (this.WorkItem == null)
 {
     <span><p>Loading...</p></span>
 } else
@@ -40,29 +39,19 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <span>Category <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewCateoryDetail(this.SelectedCategoryId)"/></span>
+                    <span>Category <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewCateoryDetail(this.SelectedCategoryId)" /></span>
                     <SfDropDownList @bind-Value=@(SelectedCategoryId) DataSource="@this.Categories" TItem="StringKeyValueModel" TValue="string">
                         <DropDownListEvents TItem="StringKeyValueModel" TValue="string" ValueChange="OnChange" />
-                        <DropDownListFieldSettings Value="Key" Text="Value"/>
+                        <DropDownListFieldSettings Value="Key" Text="Value" />
                     </SfDropDownList>
-                    
-                </div>
 
-                <div class="form-group col-md-6">
-                    <SfTextBox ID="IsDeleted" Readonly=true Value="@WorkItem.IsDeleted.ToString()" Placeholder="Is Deleted" FloatLabelType="FloatLabelType.Always"></SfTextBox>
                 </div>
             </div>
             <div>
                 <div class="form-group col-md-6" style="padding-top: 10px;">
-                    <SfButton @onclick="async () => await UpdateAsync()" style="margin:10px;" CssClass="e-warning">Update</SfButton>
-                    <SfButton @onclick="async () => await CancelAsync()" style="margin:10px;" CssClass="e-info">Cancel</SfButton>
-                    @if (this.WorkItem.IsDeleted)
-                    {
-                        <SfButton @onclick="async () => await RecoverAsync()" style="margin:10px;" CssClass="e-success">Recover</SfButton>
-                    } else
-                    {
-                        <SfButton @onclick="async () => await SoftDeleteAsync()" style="margin:10px;" CssClass="e-danger">Delete</SfButton>
-                    }
+                    
+                    <SfButton @onclick="async () => await AddNewProductAsync()" style="margin:10px;" CssClass="e-info">Add New</SfButton>
+                    
                 </div>
             </div>
         </EditForm>

@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace Assignment03.BlazorWebApp;
 
-public partial class ProductDetailPage
+public partial class ProductNewPage
 {
-
     #region [ Properties - Inject ]
     [Inject]
     private NavigationManager NavigationManager { get; set; }
@@ -46,48 +45,31 @@ public partial class ProductDetailPage
 
         this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
 
-        this.WorkItem = await HttpClientContext.Product.GetSingleByIdAsync(Id, Model.AccessToken);
-        this.SelectedCategoryId = WorkItem.CategoryId;
+        this.WorkItem = new Product();
         this.WorkItem.Category = await HttpClientContext.Category.GetSingleByIdAsync(this.WorkItem.CategoryId, Model.AccessToken);
         this.Categories = (await this.HttpClientContext.Category.GetListAllAsync(Model.AccessToken))
                             .Select(x => new StringKeyValueModel { Key = x.Id, Value = x.Name }).ToList();
+        this.SelectedCategoryId = Categories.FirstOrDefault().Key;
     }
     #endregion
 
     #region [ Methods - Private ]
-    private async Task UpdateAsync()
+    private async Task AddNewProductAsync()
     {
+        var isValidInput = this.CheckInput();
+
+        if (!isValidInput)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Not Valid Input");
+            return;
+        }
+
         this.WorkItem.CategoryId = this.SelectedCategoryId;
-        var result = await this.HttpClientContext.Product.UpdateAsync(this.WorkItem, Model.AccessToken);
+        var result = await this.HttpClientContext.Product.AddAsync(this.WorkItem, Model.AccessToken);
         if (result)
         {
             await JSRuntime.InvokeVoidAsync("alert", "Updated");
-            await this.OnInitializedAsync();
-        }
-    }
-
-    private async Task CancelAsync()
-    {
-        await this.OnInitializedAsync();
-    }
-
-    private async Task RecoverAsync()
-    {
-        var result = await this.HttpClientContext.Product.RecoverAsync(this.Id, Model.AccessToken);
-        if (result)
-        {
-            await JSRuntime.InvokeVoidAsync("alert", "Updated");
-            await this.OnInitializedAsync();
-        }
-    }
-
-    private async Task SoftDeleteAsync()
-    {
-        var result = await this.HttpClientContext.Product.SoftDeleteAsync(this.Id, Model.AccessToken);
-        if (result)
-        {
-            await JSRuntime.InvokeVoidAsync("alert", "Updated");
-            await this.OnInitializedAsync();
+            this.NavigationManager.NavigateTo("/Admin/Products");
         }
     }
 
@@ -99,6 +81,26 @@ public partial class ProductDetailPage
     private void OnChange(ChangeEventArgs<string, StringKeyValueModel> args)
     {
         this.SelectedCategoryId = args.ItemData.Key;
+    }
+
+    private bool CheckInput()
+    {
+        if (string.IsNullOrEmpty(this.WorkItem.Name) || string.IsNullOrEmpty(this.WorkItem.Weight))
+        {
+            return false;
+        }
+
+        if (0 >= this.WorkItem.Price || this.WorkItem.Price >= 10_000_000_000)
+        {
+            return false;
+        }
+
+        if (0 >= this.WorkItem.InStock || this.WorkItem.InStock >= 1_000_000)
+        {
+            return false;
+        }
+
+        return true;
     }
     #endregion
 }
