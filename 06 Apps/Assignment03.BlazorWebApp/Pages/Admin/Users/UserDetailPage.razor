@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <SfTextBox ID="Email" @bind-Value="@WorkItem.Email" Placeholder="Email" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                    <SfTextBox ID="Email" @bind-Value="@WorkItem.Email" Placeholder="Email" FloatLabelType="FloatLabelType.Always" Readonly=true></SfTextBox>
                     <ValidationMessage style="color: #dc3545; height: 0px" For="@(() => WorkItem.Email)" />
                 </div>
 

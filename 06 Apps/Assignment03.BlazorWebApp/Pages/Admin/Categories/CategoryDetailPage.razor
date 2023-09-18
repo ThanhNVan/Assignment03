@@ -18,10 +18,10 @@
         <EditForm Model="@WorkItem">
             <div style="padding-top: 20px;">
                 <div class="form-group col-md-6">
-                    <SfTextBox ID="Name" Value="@WorkItem.Name" Placeholder="Name" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                    <SfTextBox @bind-Value="@WorkItem.Name" Placeholder="Name" FloatLabelType="FloatLabelType.Always"></SfTextBox>
                 </div>
                 <div class="form-group col-md-6">
-                    <SfTextBox ID="IsDeleted" Readonly=true Value="@WorkItem.IsDeleted.ToString()" Placeholder="Is Deleted" FloatLabelType="FloatLabelType.Always"></SfTextBox>
+                    <SfTextBox Readonly=true Value="@WorkItem.IsDeleted.ToString()" Placeholder="Is Deleted" FloatLabelType="FloatLabelType.Always"></SfTextBox>
                 </div>
             </div>
 

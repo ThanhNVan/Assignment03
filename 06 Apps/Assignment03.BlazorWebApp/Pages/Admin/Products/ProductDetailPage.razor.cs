@@ -2,9 +2,11 @@
 using Assignment03.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Maps;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Assignment03.BlazorWebApp;
@@ -23,6 +25,9 @@ public partial class ProductDetailPage
     private HttpClientContext HttpClientContext { get; set; }
 
     SfTextBox CategoryTextBox;
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
     #endregion
 
     #region [ Properties ]
@@ -33,6 +38,7 @@ public partial class ProductDetailPage
 
     public Product WorkItem { get; set; }
 
+    public IList<StringKeyValueModel> Categories { get; set; }
     #endregion
 
     #region [ Methods - Override ]
@@ -43,14 +49,20 @@ public partial class ProductDetailPage
 
         this.WorkItem = await HttpClientContext.Product.GetSingleByIdAsync(Id, Model.AccessToken);
         this.WorkItem.Category = await HttpClientContext.Category.GetSingleByIdAsync(this.WorkItem.CategoryId, Model.AccessToken);
-
+        this.Categories =( await this.HttpClientContext.Category.GetListAllAsync(Model.AccessToken))
+                            .Select(x => new StringKeyValueModel { Key = x.Id, Value = x.Name}).ToList();
     }
     #endregion
 
     #region [ Methods - Private ]
     private async Task UpdateAsync()
     {
-
+        var result = await this.HttpClientContext.Product.UpdateAsync(this.WorkItem, Model.AccessToken);
+        if (result)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Updated");
+            await this.OnInitializedAsync();
+        }
     }
 
     private async Task CancelAsync()
@@ -60,12 +72,22 @@ public partial class ProductDetailPage
 
     private async Task RecoverAsync()
     {
-
+        var result = await this.HttpClientContext.Product.RecoverAsync(this.Id, Model.AccessToken);
+        if (result)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Updated");
+            await this.OnInitializedAsync();
+        }
     }
 
     private async Task SoftDeleteAsync()
     {
-
+        var result = await this.HttpClientContext.Product.SoftDeleteAsync(this.Id, Model.AccessToken);
+        if (result)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Updated");
+            await this.OnInitializedAsync();
+        }
     }
 
     private async Task AddInfoIcon()

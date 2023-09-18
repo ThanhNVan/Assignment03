@@ -2,6 +2,7 @@
 using Assignment03.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
 namespace Assignment03.BlazorWebApp;
@@ -17,6 +18,9 @@ public partial class CategoryDetailPage
 
     [Inject]
     private HttpClientContext HttpClientContext { get; set; }
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
     #endregion
 
     #region [ Properties ]
@@ -43,7 +47,12 @@ public partial class CategoryDetailPage
     #region [ Methods - Private ]
     private async Task UpdateAsync()
     {
-
+        var result = await this.HttpClientContext.Category.UpdateAsync(this.WorkItem, Model.AccessToken);
+        if (result)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Updated");
+            await this.OnInitializedAsync();
+        }
     }
 
     private async Task CancelAsync()
@@ -53,12 +62,22 @@ public partial class CategoryDetailPage
 
     private async Task RecoverAsync()
     {
-
+        var result = await this.HttpClientContext.Category.RecoverAsync(this.Id, Model.AccessToken);
+        if (result)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Updated");
+            await this.OnInitializedAsync();
+        }
     }
 
     private async Task SoftDeleteAsync()
     {
-
+        var result = await this.HttpClientContext.Category.SoftDeleteAsync(this.Id, Model.AccessToken);
+        if (result)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Updated");
+            await this.OnInitializedAsync();
+        }
     }
 
     private void ViewProductDetail(string productId)

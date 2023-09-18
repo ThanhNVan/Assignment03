@@ -40,7 +40,12 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <SfTextBox @ref=CategoryTextBox @bind-Value="@WorkItem.Category.Name" Placeholder="Category" FloatLabelType="FloatLabelType.Always" Created="async () => await AddInfoIcon()"></SfTextBox>
+                    <span>Category</span>
+                    <SfDropDownList @bind-Value=@(this.WorkItem.CategoryId) DataSource="@this.Categories"  >
+                        <DropDownListFieldSettings Value="Key" Text="Value">
+                        </DropDownListFieldSettings>
+                    </SfDropDownList>
+                    
                 </div>
 
                 <div class="form-group col-md-6">

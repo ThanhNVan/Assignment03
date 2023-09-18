@@ -2,6 +2,7 @@
 using Assignment03.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +22,9 @@ public partial class UserDetailPage
 
     [Inject]
     private HttpClientContext HttpClientContext { get; set; }
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
     #endregion
 
     #region [ Properties ]
@@ -33,7 +37,7 @@ public partial class UserDetailPage
 
     public User WorkItem { get; set; }
 
-    public IList<KeyValueModel> RoleList { get; set; }
+    public IList<IntKeyValueModel> RoleList { get; set; }
 
     public IList<UserPhone> UserPhoneList { get; set; }
     #endregion
@@ -46,15 +50,20 @@ public partial class UserDetailPage
 
         this.WorkItem = await HttpClientContext.User.GetSingleByIdAsync(Id, Model.AccessToken);
         this.RoleList = Enum.GetValues(typeof(RoleEnums)).Cast<RoleEnums>()
-            .Select(x => new KeyValueModel { Key = (int)x, Value = x.ToString() }).ToList();
+            .Select(x => new IntKeyValueModel { Key = (int)x, Value = x.ToString() }).ToList();
         this.UserPhoneList = await this.HttpClientContext.UserPhone.GetListByUserIdAsync(this.Id, Model.AccessToken);
 
     }
     #endregion
 
     #region [ Methods - Private ]
-    private async Task UpdateAsync() { 
-    
+    private async Task UpdateAsync() {
+        var result = await this.HttpClientContext.User.UpdateAsync(this.WorkItem, Model.AccessToken);
+        if (result)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Updated");
+            await this.OnInitializedAsync();
+        }
     }
 
     private async Task CancelAsync()
@@ -64,12 +73,22 @@ public partial class UserDetailPage
 
     private async Task RecoverAsync()
     {
-
+        var result = await this.HttpClientContext.User.RecoverAsync(this.Id, Model.AccessToken);
+        if (result)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Updated");
+            await this.OnInitializedAsync();
+        }
     }
 
     private async Task SoftDeleteAsync()
     {
-
+        var result = await this.HttpClientContext.User.SoftDeleteAsync(this.Id, Model.AccessToken);
+        if (result)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Updated");
+            await this.OnInitializedAsync();
+        }
     }
     #endregion
 }
