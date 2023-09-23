@@ -17,34 +17,11 @@
             <Template>
                 @{
                     var user = context as User;
-                    switch (user.Role)
-                    {
-                        case (int)RoleEnums.Manager:
-                            <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
-                            break;
-                        case (int)RoleEnums.Admin:
-                            <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
-                            break;
-                        case (int)RoleEnums.Employee:
-                            <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
-                            break;
-                        case (int)RoleEnums.Customer:
-                            <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
-                            break;
-                        default:
-                            break;
-                    }
+                    <span>@Enum.GetName(typeof(RoleEnums), user.Role)</span>
                 }
             </Template>
         </GridColumn>
-        <GridColumn Field="@nameof(User.CreatedAt)" TextAlign="TextAlign.Right">
-            <Template>
-                @{
-                    var User = context as User;
-                    <span>@(User.CreatedAt.ToString("MMM dd, yyyy"))</span>
-                }
-            </Template>
-        </GridColumn>
+ 
         <GridColumn Field="@nameof(User.IsDeleted)" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn TextAlign="TextAlign.Right" Width="8%">
             <Template>

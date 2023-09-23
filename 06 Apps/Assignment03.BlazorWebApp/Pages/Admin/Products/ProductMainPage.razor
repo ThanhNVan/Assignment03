@@ -13,8 +13,8 @@
         <GridColumn Field="@nameof(Product.Name)"></GridColumn>
         <GridColumn Field="@nameof(Product.Weight)"></GridColumn>
         <GridColumn Field="@nameof(Product.Price)"></GridColumn>
-        <GridColumn Field="@nameof(Product.InStock)"></GridColumn>
-        <GridColumn Field="@nameof(Product.CategoryId)">
+        <GridColumn Field="@nameof(Product.InStock)" HeaderText="No. InStock" HeaderTextAlign="TextAlign.Center"></GridColumn>
+        <GridColumn Field="@nameof(Product.CategoryId)" HeaderText="Category" HeaderTextAlign="TextAlign.Center">
             <Template>
                 @{
                     var product = context as Product;
@@ -29,14 +29,7 @@
                 }
             </Template>
         </GridColumn>
-        <GridColumn Field="@nameof(Product.CreatedAt)" TextAlign="TextAlign.Right">
-            <Template>
-                @{
-                    var product = context as Product;
-                    <span>@(product.CreatedAt.ToString("MMM dd, yyyy"))</span>
-                }
-            </Template>
-        </GridColumn>
+        
         <GridColumn Field="@nameof(Product.IsDeleted)" TextAlign="TextAlign.Right"></GridColumn>
         <GridColumn TextAlign="TextAlign.Right" Width="8%">
             <Template>

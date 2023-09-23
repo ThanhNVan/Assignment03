@@ -27,9 +27,6 @@ public partial class ProductNewPage
     #endregion
 
     #region [ Properties ]
-    [Parameter]
-    public string Id { get; set; }
-
     private SignInSuccessModel Model { get; set; }
 
     public Product WorkItem { get; set; }
