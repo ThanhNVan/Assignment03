@@ -1,4 +1,5 @@
 using Assignment03.HttpClientProviders;
+using Blazored.LocalStorage;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ public class Program
         builder.Services.AddSyncfusionBlazor();
         builder.Services.AddHttpClientProviders(builder.Configuration);
         builder.Services.AddBlazoredSessionStorage();
+        builder.Services.AddBlazoredLocalStorage();
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
 

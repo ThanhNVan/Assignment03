@@ -30,8 +30,25 @@
             </Template>
         </GridColumn>
         
-        <GridColumn Field="@nameof(Product.IsDeleted)" TextAlign="TextAlign.Right"></GridColumn>
-        <GridColumn TextAlign="TextAlign.Right" Width="8%">
+        <GridColumn TextAlign="TextAlign.Center" HeaderText="Add To Cart" Width="10%">
+            <Template>
+                @{
+                    var product = context as Product;
+                    <SfButton CssClass="e-inherit" IconCss="oi oi-plus" OnClick="async () => await AddProductToCartAsync(product.Id)"></SfButton>
+                }
+            </Template>
+        </GridColumn>
+
+@*         <GridColumn TextAlign="TextAlign.Center" HeaderText="Remove From Cart" Width="12%">
+            <Template>
+                @{
+                    var product = context as Product;
+                    <SfButton CssClass="e-inherit" IconCss="oi oi-minus" OnClick="async () => await ReduceProductFromCartAsync(product.Id)"></SfButton>
+                }
+            </Template>
+        </GridColumn> *@
+
+        <GridColumn TextAlign="TextAlign.Right" Width="8%" HeaderText="Details">
             <Template>
                 @{
                     var product = context as Product;

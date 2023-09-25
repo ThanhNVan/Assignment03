@@ -1,4 +1,5 @@
-﻿using Blazored.SessionStorage;
+﻿using Assignment03.EntityProviders;
+using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ public partial class Logout
     #region [ Methods - Override ]
     protected override async Task OnInitializedAsync() {
         try {
-            await SessionStorage.ClearAsync();
+            await SessionStorage.RemoveItemAsync(AppUserRole.Model);
 
         } catch (Exception) {
             Navigation.NavigateTo("/", true);
