@@ -24,7 +24,7 @@ public abstract class BaseLogicProvider<TEntity, TDataProvider> : IBaseLogicProv
     public async virtual Task<bool> AddAsync(TEntity entity) {
         if (entity == null) {
             this._logger.LogWarning($"Null {nameof(TEntity)}");
-            return false;
+            throw new ArgumentNullException();
         }
         var result = await this._dataProvider.AddAsync(entity);
         return result;
@@ -34,7 +34,7 @@ public abstract class BaseLogicProvider<TEntity, TDataProvider> : IBaseLogicProv
         var result = default(TEntity);
         if (string.IsNullOrEmpty(id)) {
             this._logger.LogWarning($"IsNullOrEmpty: {nameof(TEntity)} Id");
-            return result;
+            throw new ArgumentNullException();
         }
         result = await this._dataProvider.GetSingleByIdAsync(id);
         return result;
@@ -44,7 +44,7 @@ public abstract class BaseLogicProvider<TEntity, TDataProvider> : IBaseLogicProv
         var result = default(bool);
         if (string.IsNullOrEmpty(entity.Id)) {
             this._logger.LogWarning($"IsNullOrEmpty: Id");
-            return result;
+            throw new ArgumentNullException();
         }
         result = await this._dataProvider.UpdateAsync(entity);
 
@@ -55,7 +55,7 @@ public abstract class BaseLogicProvider<TEntity, TDataProvider> : IBaseLogicProv
         var result = default(bool);
         if (string.IsNullOrEmpty(entityId)) {
             this._logger.LogWarning($"IsNullOrEmpty: entityId");
-            return result;
+            throw new ArgumentNullException();
         }
         result = await this._dataProvider.SoftDeleteAsync(entityId);
         return result;
@@ -65,7 +65,7 @@ public abstract class BaseLogicProvider<TEntity, TDataProvider> : IBaseLogicProv
         var result = default(bool);
         if (string.IsNullOrEmpty(entityId)) {
             this._logger.LogWarning($"IsNullOrEmpty: entityId");
-            return result;
+            throw new ArgumentNullException();
         }
         result = await this._dataProvider.RecoverAsync(entityId);
         return result;
@@ -75,7 +75,7 @@ public abstract class BaseLogicProvider<TEntity, TDataProvider> : IBaseLogicProv
         var result = default(bool);
         if (string.IsNullOrEmpty(entityId)) {
             this._logger.LogWarning($"IsNullOrEmpty: entityId");
-            return result;
+            throw new ArgumentNullException();
         }
         result = await this._dataProvider.DestroyAsync(entityId);
         return result;

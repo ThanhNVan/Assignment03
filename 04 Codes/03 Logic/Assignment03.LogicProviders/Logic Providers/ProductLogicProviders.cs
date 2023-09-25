@@ -15,10 +15,19 @@ public class ProductLogicProviders : BaseLogicProvider<Product, IProductDataProv
     public async Task<IList<Product>> GetListByOrderIdAsync(string categoryId){
         if (string.IsNullOrEmpty(categoryId))
         {
-            return null;
+            throw new ArgumentNullException(nameof(categoryId));
         }
 
         return await this._dataProvider.GetListByOrderIdAsync(categoryId);
+    }
+    public async Task<IList<ProductInfoModel>> GetListByBatchAsync(IList<string> idList)
+    {
+        if (idList.Where(x => string.IsNullOrEmpty(x)).Any())
+        {
+            throw new ArgumentNullException();
+        }
+
+        return await this._dataProvider.GetListByBatchAsync(idList);
     }
     #endregion
 }

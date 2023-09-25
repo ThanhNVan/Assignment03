@@ -31,6 +31,30 @@ public class ProductController : BaseWebApiController<Product, IProductLogicProv
         } catch (ArgumentNullException ex)
         {
             this._logger.LogError(ex.Message);
+            return BadRequest("Null Exception");
+        } catch (Exception ex)
+        {
+            this._logger.LogError(ex.Message);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+    }
+
+    [HttpPost(nameof(MethodUrl.GetBatch))]
+    public async Task<IActionResult> GetListByBatchAsync([FromBody] IList<string> idList)
+    {
+        try
+        {
+            var result =  await this._logicProvider.GetListByBatchAsync(idList);
+            if (result == null || result.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);  
+
+        } catch (ArgumentNullException ex)
+        {
+            this._logger.LogError(ex.Message);
             return BadRequest();
         } catch (Exception ex)
         {

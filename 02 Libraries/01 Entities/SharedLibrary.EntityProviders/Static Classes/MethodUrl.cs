@@ -40,5 +40,7 @@ public static class MethodUrl
     public static string IsDuplicatedEmail = "/IsDuplicatedEmail/";
 
     public static string AddNewUser = "/AddNewUser/";
+
+    public static string GetBatch = "/GetBatch/";
     #endregion
 }
