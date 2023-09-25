@@ -43,24 +43,8 @@ public partial class CartMainPage
         this.Model = await SessionStorage.GetItemAsync<SignInSuccessModel>(AppUserRole.Model);
 
         this.CartList = await this.CartLocalStorageService.GetListAllAsync(Model.Email);
-
-        var idList = this.CartList.Select(x => x.ProductId).ToList();
-
-        var productInfoList = await this.HttpClientContext.Product.GetListByBatchAsync(idList, Model.AccessToken);
-        var list = CartList.Join(productInfoList,
-                                        cart => cart.ProductId,
-                                        productInfo => productInfo.Id,
-                                        (cart, productInfo) => new ProductCart()
-                                        {
-                                            Id = productInfo.Id,
-                                            Name = productInfo.Name,
-                                            Weight = productInfo.Weight,
-                                            Price = productInfo.Price,
-                                            InStock = productInfo.InStock,
-                                            Category = productInfo.Category,
-                                            Unit = cart.Unit,
-                                        });
-        this.WorkItems = new ObservableCollection<ProductCart>(list);
+        
+        this.WorkItems = new ObservableCollection<ProductCart>(await this.GetProductCartAsync());
     }
     #endregion
 
@@ -93,6 +77,27 @@ public partial class CartMainPage
         }
         this.WorkItems.FirstOrDefault(x => x.Id == productId).Unit--;
         await this.CartLocalStorageService.ReduceProductFromCartAsync(Model.Email, productId);
+    }
+
+    private async Task<IEnumerable<ProductCart>> GetProductCartAsync()
+    {
+        var idList = this.CartList.Select(x => x.ProductId).ToList();
+
+        var productInfoList = await this.HttpClientContext.Product.GetListByBatchAsync(idList, Model.AccessToken);
+        return CartList.Join(productInfoList,
+                                        cart => cart.ProductId,
+                                        productInfo => productInfo.Id,
+                                        (cart, productInfo) => new ProductCart()
+                                        {
+                                            Id = productInfo.Id,
+                                            Name = productInfo.Name,
+                                            Weight = productInfo.Weight,
+                                            Price = productInfo.Price,
+                                            InStock = productInfo.InStock,
+                                            Category = productInfo.Category,
+                                            Unit = cart.Unit,
+                                        });
+
     }
     #endregion
 }
