@@ -3,7 +3,6 @@ using Assignment03.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Syncfusion.Blazor.DropDowns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,6 +80,11 @@ public partial class CategoryNewPage
         }
 
         return true;
+    }
+
+    private async Task CancelAsync()
+    {
+        await this.OnInitializedAsync();
     }
     #endregion
 }

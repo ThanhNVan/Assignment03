@@ -8,7 +8,7 @@ namespace Assignment03.DataProviders;
 public class ProductDataProviders : BaseDataProvider<Product, AppDbContext>, IProductDataProviders
 {
     #region [ CTor ]
-    public ProductDataProviders(ILogger<BaseDataProvider<Product, AppDbContext>> logger, IDbContextFactory<AppDbContext> dbContextFactory) : base(logger, dbContextFactory) {
+    public ProductDataProviders(ILogger<ProductDataProviders> logger, IDbContextFactory<AppDbContext> dbContextFactory) : base(logger, dbContextFactory) {
     }
     #endregion
 

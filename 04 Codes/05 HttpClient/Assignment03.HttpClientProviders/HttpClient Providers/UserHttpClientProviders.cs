@@ -36,5 +36,56 @@ public class UserHttpClientProviders : BaseHttpClientProvider<User>, IUserHttpCl
             return result;
         }
     }
+    public async Task<bool> IsDuplicatedEmailAsync(string email, string accessToken = "")
+    {
+        var result = default(bool);
+
+        try
+        {
+            var url = this._entityUrl + MethodUrl.IsDuplicatedEmail;
+
+            var httpClient = this.CreateClient(accessToken: accessToken);
+            var response = await httpClient.PostAsJsonAsync(url, email);
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<bool>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+
+            return false;
+        } catch (Exception ex)
+        {
+            this._logger.LogError(ex.Message);
+            return result;
+        }
+    }
     #endregion
+
+    #region [ Methods - Add ]
+    public async Task<bool> AddNewUserAsync(NewUserModel model, string accessToken = "")
+    {
+        var result   = default(bool);
+
+        try
+        {
+            var url = this._entityUrl + MethodUrl.AddNewUser;
+
+            var httpClient = this.CreateClient(accessToken: accessToken);
+            var response = await httpClient.PostAsJsonAsync(url, model);
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<bool>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+
+            return false;
+        } catch (Exception ex)
+        {
+            this._logger.LogError(ex.Message);
+            return result;
+        }
+    }
+    #endregion
+
+
 }

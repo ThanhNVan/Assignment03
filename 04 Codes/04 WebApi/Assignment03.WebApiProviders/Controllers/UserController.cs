@@ -11,29 +11,28 @@ namespace Assignment03.WebApiProviders;
 
 public class UserController : BaseWebApiController<User, IUserLogicProviders>
 {
-    #region [ Fields ]
-    private readonly IAuthenticationProvider _authenticationProvider;   
-    #endregion
 
     #region [ CTor ]
-    public UserController(ILogger<UserController> logger, 
-                            IUserLogicProviders logicProvider, 
-                            LogicContext logicContext, 
-                            IAuthenticationProvider authenticationProvider) 
-                            : base(logger, logicProvider, logicContext) {
-        _authenticationProvider = authenticationProvider;
+    public UserController(ILogger<UserController> logger,
+                            IUserLogicProviders logicProvider,
+                            LogicContext logicContext)
+                            : base(logger, logicProvider, logicContext)
+    {
     }
     #endregion
 
     #region [ Methods - Login/ Logout ]
     [AllowAnonymous]
     [HttpPost(nameof(MethodUrl.SignIn))]
-    public async Task<IActionResult> SignInAsync([FromBody] SignInModel model) {
-        try {
+    public async Task<IActionResult> SignInAsync([FromBody] SignInModel model)
+    {
+        try
+        {
             var apiResponse = new SignInResponseModel();
             var result = await this._logicProvider.GetSingleBySignInAsync(model);
 
-            if (result == null) {
+            if (result == null)
+            {
                 apiResponse.Success = false;
                 apiResponse.Message = "Not correct Email or Password";
                 apiResponse.Model = null;
@@ -45,7 +44,8 @@ public class UserController : BaseWebApiController<User, IUserLogicProviders>
             apiResponse.Model = result;
             return Ok(apiResponse);
 
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             this._logger.LogError(ex.Message);
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
@@ -53,13 +53,34 @@ public class UserController : BaseWebApiController<User, IUserLogicProviders>
     #endregion
 
     #region [ Methods - Override ]
-    [AllowAnonymous]
-    [HttpPost(nameof(MethodUrl.Add))]
-    public async override Task<IActionResult> AddAsync([FromBody] User entity) {
-        var passwordHash = this._authenticationProvider.HashPassword(entity.PasswordHash);
-        entity.PasswordHash = passwordHash;
+    [HttpPost(nameof(MethodUrl.AddNewUser))]
+    public async Task<IActionResult> AddNewUserAsync([FromBody] NewUserModel model)
+    {
+        try
+        {
+            var result = await this._logicProvider.AddNewUserAsync(model);
+            return Ok(result);
+        } catch (Exception ex)
+        {
+            this._logger.LogError(ex.Message);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+    }
+    #endregion
 
-        return await base.AddAsync(entity);
+    #region [ Methods - IsDuplicatedEmail ]
+    [HttpPost(nameof(MethodUrl.IsDuplicatedEmail))]
+    public async Task<IActionResult> IsDuplicatedEmail([FromBody] string email)
+    {
+        try
+        {
+            var result = await this._logicProvider.IsDuplicatedEmailAsync(email);
+            return Ok(result);
+        } catch (Exception ex)
+        {
+            this._logger.LogError(ex.Message);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
     }
     #endregion
 }

@@ -8,7 +8,7 @@ namespace Assignment03.DataProviders;
 public class RefreshTokenDataProviders : BaseDataProvider<RefreshToken, AppDbContext>, IRefreshTokenDataProviders
 {
     #region [ CTor ]
-    public RefreshTokenDataProviders(ILogger<BaseDataProvider<RefreshToken, AppDbContext>> logger, IDbContextFactory<AppDbContext> dbContextFactory) : base(logger, dbContextFactory) {
+    public RefreshTokenDataProviders(ILogger<RefreshTokenDataProviders> logger, IDbContextFactory<AppDbContext> dbContextFactory) : base(logger, dbContextFactory) {
     }
     #endregion
 }

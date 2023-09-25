@@ -8,7 +8,7 @@ namespace Assignment03.LogicProviders;
 public class RefreshTokenLogicProviders : BaseLogicProvider<RefreshToken, IRefreshTokenDataProviders>, IRefreshTokenLogicProviders
 {
     #region [ CTor ]
-    public RefreshTokenLogicProviders(ILogger<BaseLogicProvider<RefreshToken, IRefreshTokenDataProviders>> logger, IRefreshTokenDataProviders dataProvider) : base(logger, dataProvider) {
+    public RefreshTokenLogicProviders(ILogger<RefreshTokenLogicProviders> logger, IRefreshTokenDataProviders dataProvider) : base(logger, dataProvider) {
     }
     #endregion
 }

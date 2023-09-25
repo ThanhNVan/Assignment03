@@ -99,5 +99,10 @@ public partial class ProductNewPage
 
         return true;
     }
+
+    private async Task CancelAsync()
+    {
+        await this.OnInitializedAsync();
+    }
     #endregion
 }

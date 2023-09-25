@@ -36,5 +36,9 @@ public static class MethodUrl
     public static string GetListByOrderId = "/GetListByOrderId/";
 
     public static string GetListByCategoryId = "/GetListByCategoryId/";
+
+    public static string IsDuplicatedEmail = "/IsDuplicatedEmail/";
+
+    public static string AddNewUser = "/AddNewUser/";
     #endregion
 }

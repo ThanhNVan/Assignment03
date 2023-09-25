@@ -14,7 +14,7 @@ public class UserLogicProviders : BaseLogicProvider<User, IUserDataProviders>, I
     #endregion
 
     #region [ CTor ]
-    public UserLogicProviders(ILogger<BaseLogicProvider<User, IUserDataProviders>> logger, 
+    public UserLogicProviders(ILogger<UserLogicProviders> logger, 
                                 IUserDataProviders dataProvider,
                                 IAuthenticationProvider authentication,
                                 IRefreshTokenDataProviders refreshTokenData,
@@ -75,6 +75,33 @@ public class UserLogicProviders : BaseLogicProvider<User, IUserDataProviders>, I
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
             return result;
+        }
+    }
+
+    public async Task<bool> IsDuplicatedEmailAsync(string email)
+    {
+        if (string.IsNullOrEmpty(email))
+        {
+            return false;
+        }
+        return await this._dataProvider.IsDuplicatedEmailAsync(email);
+    }
+    #endregion
+
+    #region [ Methods - Add New User ]
+    public async Task<bool> AddNewUserAsync(NewUserModel model)
+    {
+        try
+        {
+            var passwordHash = this._authentication.HashPassword(model.User.PasswordHash);
+            model.User.PasswordHash = passwordHash;
+
+            var result = await this._dataProvider.AddNewUserAsync(model);
+            return result;
+        } catch (Exception ex)
+        {
+            this._logger.LogError(ex.Message);
+            return false;
         }
     }
     #endregion

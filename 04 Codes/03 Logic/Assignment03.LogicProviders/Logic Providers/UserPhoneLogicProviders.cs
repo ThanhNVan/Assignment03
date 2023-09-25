@@ -8,7 +8,7 @@ namespace Assignment03.LogicProviders;
 public class UserPhoneLogicProviders : BaseLogicProvider<UserPhone, IUserPhoneDataProviders>, IUserPhoneLogicProviders
 {
     #region [ CTor ]
-    public UserPhoneLogicProviders(ILogger<BaseLogicProvider<UserPhone, IUserPhoneDataProviders>> logger, IUserPhoneDataProviders dataProvider) : base(logger, dataProvider) {
+    public UserPhoneLogicProviders(ILogger<UserPhoneLogicProviders> logger, IUserPhoneDataProviders dataProvider) : base(logger, dataProvider) {
     }
     #endregion
 

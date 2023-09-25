@@ -9,7 +9,7 @@ public class CategoryLogicProviders : BaseLogicProvider<Category, ICategoryDataP
 {
     #region [ CTor ]
 
-    public CategoryLogicProviders(ILogger<BaseLogicProvider<Category, ICategoryDataProviders>> logger,
+    public CategoryLogicProviders(ILogger<CategoryLogicProviders> logger,
                                     ICategoryDataProviders dataProvider) : base(logger, dataProvider) {
     }
     #endregion
