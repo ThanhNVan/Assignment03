@@ -17,8 +17,9 @@ public class Program
         // Add services to the container.
         builder.Services.AddSyncfusionBlazor();
         builder.Services.AddHttpClientProviders(builder.Configuration);
-        builder.Services.AddBlazoredSessionStorage();
         builder.Services.AddBlazoredLocalStorage();
+        builder.Services.AddBlazoredSessionStorage();
+        builder.Services.AddLocalService();
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
 

@@ -39,14 +39,14 @@
             </Template>
         </GridColumn>
 
-@*         <GridColumn TextAlign="TextAlign.Center" HeaderText="Remove From Cart" Width="12%">
+        <GridColumn TextAlign="TextAlign.Center" HeaderText="Remove From Cart" Width="12%">
             <Template>
                 @{
                     var product = context as Product;
                     <SfButton CssClass="e-inherit" IconCss="oi oi-minus" OnClick="async () => await ReduceProductFromCartAsync(product.Id)"></SfButton>
                 }
             </Template>
-        </GridColumn> *@
+        </GridColumn>
 
         <GridColumn TextAlign="TextAlign.Right" Width="8%" HeaderText="Details">
             <Template>
