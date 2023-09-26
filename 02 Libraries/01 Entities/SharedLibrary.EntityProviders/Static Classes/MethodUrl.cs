@@ -42,5 +42,7 @@ public static class MethodUrl
     public static string AddNewUser = "/AddNewUser/";
 
     public static string GetBatch = "/GetBatch/";
+
+    public static string Checkout = "/Checkout/";
     #endregion
 }

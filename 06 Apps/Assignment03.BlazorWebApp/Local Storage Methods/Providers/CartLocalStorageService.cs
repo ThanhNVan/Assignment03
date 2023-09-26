@@ -76,5 +76,10 @@ public class CartLocalStorageService : ICartLocalStorageService
 
         return result;
     }
+
+    public async Task SetListAsync(string name, IList<Cart> cartList) {
+        await this._localStorageService.SetItemAsync(name, cartList);
+        return;
+    }
     #endregion
 }

@@ -4,6 +4,7 @@ using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Syncfusion.Blazor.Grids;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -35,6 +36,10 @@ public partial class CartMainPage
     public IList<Cart> CartList { get; set; }
 
     public ObservableCollection<ProductCart> WorkItems { get; set; }
+
+    SfGrid<ProductCart> Grid;
+
+    public List<int> SelectedRowIndexes { get; set; }
     #endregion
 
     #region [ Methods - Override ]
@@ -85,19 +90,63 @@ public partial class CartMainPage
 
         var productInfoList = await this.HttpClientContext.Product.GetListByBatchAsync(idList, Model.AccessToken);
         return CartList.Join(productInfoList,
-                                        cart => cart.ProductId,
-                                        productInfo => productInfo.Id,
-                                        (cart, productInfo) => new ProductCart()
-                                        {
-                                            Id = productInfo.Id,
-                                            Name = productInfo.Name,
-                                            Weight = productInfo.Weight,
-                                            Price = productInfo.Price,
-                                            InStock = productInfo.InStock,
-                                            Category = productInfo.Category,
-                                            Unit = cart.Unit,
-                                        });
+                                cart => cart.ProductId,
+                                productInfo => productInfo.Id,
+                                (cart, productInfo) => new ProductCart()
+                                {
+                                    Id = productInfo.Id,
+                                    Name = productInfo.Name,
+                                    Weight = productInfo.Weight,
+                                    Price = productInfo.Price,
+                                    InStock = productInfo.InStock,
+                                    Category = productInfo.Category,
+                                    Unit = cart.Unit,
+                                });
 
+    }
+
+    private async Task CheckOutAsync()
+    {
+        var checkoutList = new List<Cart>();
+
+        foreach (var item in SelectedRowIndexes)
+        {
+            checkoutList.Add(CartList[item]);
+        }
+
+        var checkoutModel = new CheckoutModel() { 
+            Email = this.Model.Email,
+            Carts = checkoutList,
+            RequiredDate = DateTime.UtcNow.AddDays(1),
+        };
+
+        var result = await this.HttpClientContext.Order.CheckoutAsync(checkoutModel, Model.AccessToken);
+        if (!string.IsNullOrEmpty(result.Value))
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Checked Out");
+            var newCart = this.CartList.Where(x => !checkoutList.Contains(x)).ToList();
+
+            await this.CartLocalStorageService.SetListAsync(Model.Email, newCart);
+            this.NavigationManager.NavigateTo($"/Admin/Orders/Details/{result.Value}");
+            return;
+        }
+
+        await JSRuntime.InvokeVoidAsync("alert", "Something is wrong");
+        return;
+    }
+
+    private async Task GetSelectedRecordsAsync(RowSelectEventArgs<ProductCart> args)
+    {
+        SelectedRowIndexes = await this.Grid.GetSelectedRowIndexesAsync();
+        
+        StateHasChanged();
+    }
+
+    private async Task GetSelectedRecordsAsync(RowDeselectEventArgs<ProductCart> args)
+    {
+        SelectedRowIndexes = await this.Grid.GetSelectedRowIndexesAsync();
+        
+        StateHasChanged();
     }
     #endregion
 }

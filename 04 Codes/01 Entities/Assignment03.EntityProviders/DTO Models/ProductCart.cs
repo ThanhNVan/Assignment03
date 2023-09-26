@@ -18,7 +18,6 @@ public class ProductCart : INotifyPropertyChanged
     public string Category { get; set; }
 
     private int _unit;
-    
 
     public int Unit
     {

@@ -10,22 +10,28 @@
 <PageTitle>My Carts</PageTitle>
 <h3>My Carts</h3>
 
-<SfGrid DataSource="@WorkItems" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+<SfGrid @ref=@Grid DataSource="@WorkItems" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="500">
     <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
-    
-     <GridColumns>
+    <GridSelectionSettings EnableToggle="true" Type="Syncfusion.Blazor.Grids.SelectionType.Multiple"></GridSelectionSettings>
+    <GridEvents RowDeselected="GetSelectedRecordsAsync" RowSelected="GetSelectedRecordsAsync" TValue="ProductCart"></GridEvents>
+    <GridColumns>
+        <GridColumn Type="ColumnType.CheckBox" Width="50">
+            <HeaderTemplate>
+            </HeaderTemplate>
+        </GridColumn>
         <GridColumn Field="@nameof(ProductCart.Id)" HeaderTextAlign="TextAlign.Center" Visible=false IsPrimaryKey=true></GridColumn>
         <GridColumn Field="@nameof(ProductCart.Name)" HeaderTextAlign="TextAlign.Center"></GridColumn>
         <GridColumn Field="@nameof(ProductCart.Weight)" HeaderTextAlign="TextAlign.Center"></GridColumn>
         <GridColumn Field="@nameof(ProductCart.Price)" HeaderTextAlign="TextAlign.Center"></GridColumn>
         <GridColumn Field="@nameof(ProductCart.InStock)" HeaderText="No. InStock" HeaderTextAlign="TextAlign.Center"></GridColumn>
         <GridColumn Field="@nameof(ProductCart.Category)" HeaderText="Category" HeaderTextAlign="TextAlign.Center"></GridColumn>
-        <GridColumn Field="@nameof(ProductCart.Unit)" HeaderText="In Cart" HeaderTextAlign="TextAlign.Center"></GridColumn>
+        <GridColumn Field="@nameof(ProductCart.Unit)" HeaderText="In Cart" HeaderTextAlign="TextAlign.Center" Width="8%"></GridColumn>
+
         <GridColumn TextAlign="TextAlign.Center" HeaderText="Add To Cart" Width="10%">
             <Template>
                 @{
                     var product = context as ProductCart;
-                    <SfButton CssClass="e-inherit" IconCss="oi oi-plus" OnClick="async () => await AddProductToCartAsync(product.Id)"></SfButton>
+                    <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-add" OnClick="async () => await AddProductToCartAsync(product.Id)"></SfButton>
                 }
             </Template>
         </GridColumn>
@@ -49,3 +55,4 @@
         </GridColumn>
      </GridColumns>
 </SfGrid>
+<SfButton CssClass="e-inherit" IconCss="e-icons e-agenda-date-range" OnClick=" async () => await CheckOutAsync()">Check Out</SfButton>

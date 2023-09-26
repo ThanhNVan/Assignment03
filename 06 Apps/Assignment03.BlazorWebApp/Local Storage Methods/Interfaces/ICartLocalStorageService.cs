@@ -13,5 +13,7 @@ public interface ICartLocalStorageService
     Task ReduceProductFromCartAsync(IList<Cart> cartList, string name,string productId);
 
     Task<IList<Cart>> GetListAllAsync(string name);
+
+    Task SetListAsync(string name, IList<Cart> cartList);
     #endregion
 }

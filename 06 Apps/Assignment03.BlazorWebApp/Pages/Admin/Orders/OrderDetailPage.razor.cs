@@ -31,7 +31,6 @@ public partial class OrderDetailPage
     private SignInSuccessModel Model { get; set; }
 
     public Order WorkItem { get; set; }
-
     #endregion
 
     #region [ Methods - Override ]
