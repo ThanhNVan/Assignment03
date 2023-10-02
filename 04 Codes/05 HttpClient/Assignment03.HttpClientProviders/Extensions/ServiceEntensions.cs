@@ -12,16 +12,16 @@ public static class ServiceEntensions
             clients.BaseAddress = new Uri(configuration["BaseUrl"]);
         });
 
-        services.AddScoped<ICategoryHttpClientProviders, CategoryHttpClientProviders>();
-        services.AddScoped<IOrderHttpClientProviders, OrderHttpClientProviders>();
-        services.AddScoped<IOrderItemHttpClientProviders, OrderItemHttpClientProviders>();
-        services.AddScoped<IProductHttpClientProviders, ProductHttpClientProviders>();
-        services.AddScoped<IRefreshTokenHttpClientProviders, RefreshTokenHttpClientProviders>();
-        services.AddScoped<IUserHttpClientProviders, UserHttpClientProviders>();
-        services.AddScoped<IUserPhoneHttpClientProviders, UserPhoneHttpClientProviders>();
-        services.AddScoped<IEncriptionProvider, EncriptionProvider>();
+        services.AddTransient<ICategoryHttpClientProviders, CategoryHttpClientProviders>();
+        services.AddTransient<IOrderHttpClientProviders, OrderHttpClientProviders>();
+        services.AddTransient<IOrderItemHttpClientProviders, OrderItemHttpClientProviders>();
+        services.AddTransient<IProductHttpClientProviders, ProductHttpClientProviders>();
+        services.AddTransient<IRefreshTokenHttpClientProviders, RefreshTokenHttpClientProviders>();
+        services.AddTransient<IUserHttpClientProviders, UserHttpClientProviders>();
+        services.AddTransient<IUserPhoneHttpClientProviders, UserPhoneHttpClientProviders>();
+        services.AddTransient<IEncriptionProvider, EncriptionProvider>();
 
-        services.AddScoped<HttpClientContext>();
+        services.AddTransient<HttpClientContext>();
     }
     #endregion
 }
